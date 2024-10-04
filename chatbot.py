@@ -8,7 +8,7 @@ def simple_chatbot(user_input):
     patterns = {
         r'hi|hello|hey': 'Hello! How can I help you today?',
         r'how are you': "I'm doing well, thank you for asking. How about you?",
-        r'what is your name': "My name is SimpleBot. It's nice to meet you!",
+        r'what is your name': "My name is JoerAI. It's nice to meet you!",
         r'bye|goodbye': 'Goodbye! Have a great day!',
         r'thank you|thanks': "You're welcome! Is there anything else I can help with?",
         r'weather': "I'm sorry, I don't have access to real-time weather information.",
