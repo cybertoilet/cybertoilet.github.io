@@ -9,7 +9,7 @@ class JoerAI:
             (r'what is your name', ['My name is JoerAI.', 'Im JoerAI, nice to meet you!']),
             (r'bye|goodbye', ['Goodbye!', 'See you later!', 'Take care!']),
             (r'(\w+) (weather|temperature) (in|at) (\w+)', ['Im sorry, I don\'t have access to real-time weather information.']),
-            (r'tell me (about|something about) (\w+)', ['I\m sorry, I don\'t have detailed information about {1}. Is there anything else I can help with?']),
+            (r'tell me (about|something about) (\w+)', ['Im sorry, I dont have detailed information about {1}. Is there anything else I can help with?']),
             (r'what can you do', ['I can chat with you, answer simple questions, and try to help with basic tasks. What would you like to know?']),
         ]
 
@@ -22,7 +22,7 @@ class JoerAI:
                 return response.format(*match.groups())
         return "I'm not sure how to respond to that. Can you please rephrase or ask something else?"
 
-def main():
+def chat():
     joer = JoerAI()
     print("JoerAI: Hello! I'm JoerAI. How can I assist you today? (Type 'bye' to exit)")
     
@@ -35,4 +35,4 @@ def main():
         print("JoerAI:", response)
 
 if __name__ == "__main__":
-    main()
+    chat()
