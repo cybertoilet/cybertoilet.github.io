@@ -5,7 +5,7 @@ class JoerAI:
     def __init__(self):
         self.patterns = [
             (r'\b(hi|hello|hey)\b', ['Hello!', 'Hi there!', 'Hey! How can I help you?']),
-            (r'how are you', ['I'm doing well, thanks for asking!', 'Im great! How about you?']),
+            (r'how are you', ['Im doing well, thanks for asking!', 'Im great! How about you?']),
             (r'what is your name', ['My name is JoerAI.', 'Im JoerAI, nice to meet you!']),
             (r'bye|goodbye', ['Goodbye!', 'See you later!', 'Take care!']),
             (r'(\w+) (weather|temperature) (in|at) (\w+)', ['Im sorry, I don\'t have access to real-time weather information.']),
