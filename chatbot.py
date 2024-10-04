@@ -1,40 +1,38 @@
 import re
+import random
 
-def simple_chatbot(user_input):
-    # Convert input to lowercase for easier matching
-    user_input = user_input.lower()
+class JoerAI:
+    def __init__(self):
+        self.patterns = [
+            (r'hi|hello|hey', ['Hello!', 'Hi there!', 'Hey!']),
+            (r'how are you', ['I'm doing well, thanks!', 'I'm great, how about you?']),
+            (r'what is your name', ['My name is JoerAI.', 'I'm JoerAI, nice to meet you!']),
+            (r'bye|goodbye', ['Goodbye!', 'See you later!', 'Bye!']),
+            (r'(\w+) your favorite (color|food|movie)', ['As an AI, I don\'t have preferences, but I find {1}s interesting!']),
+            (r'tell me a joke', ['Why don\'t scientists trust atoms? Because they make up everything!', 
+                                 'What do you call a fake noodle? An impasta!']),
+        ]
 
-    # Define some simple patterns and responses
-    patterns = {
-        r'hi|hello|hey': 'Hello! How can I help you today?',
-        r'how are you': "I'm doing well, thank you for asking. How about you?",
-        r'what is your name': "My name is JoerAI. It's nice to meet you!",
-        r'bye|goodbye': 'Goodbye! Have a great day!',
-        r'thank you|thanks': "You're welcome! Is there anything else I can help with?",
-        r'weather': "I'm sorry, I don't have access to real-time weather information.",
-        r'help': "I'm a simple chatbot. You can ask me basic questions or just chat with me!",
-    }
-
-    # Check input against patterns and return appropriate response
-    for pattern, response in patterns.items():
-        if re.search(pattern, user_input):
-            return response
-
-    # Default response if no pattern matches
-    return "I'm not sure how to respond to that. Can you try rephrasing or asking something else?"
+    def respond(self, user_input):
+        user_input = user_input.lower()
+        for pattern, responses in self.patterns:
+            match = re.search(pattern, user_input)
+            if match:
+                response = random.choice(responses)
+                return response.format(*match.groups())
+        return "I'm not sure how to respond to that. try rephrasing that, or try something else"
 
 def main():
-    print("SimpleBot: Hello! I'm a simple chatbot. Type 'bye' to exit.")
+    joer = JoerAI()
+    print("JoerAI: Hello! I'm JoerAI. ")
     
     while True:
         user_input = input("You: ")
         if user_input.lower() == 'bye':
-            print("SimpleBot: Goodbye! Have a great day!")
+            print("JoerAI: Goodbye! Have a great day!")
             break
-        
-        response = simple_chatbot(user_input)
-        print("SimpleBot:", response)
+        response = joer.respond(user_input)
+        print("JoerAI:", response)
 
 if __name__ == "__main__":
     main()
-
