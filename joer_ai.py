@@ -12,6 +12,7 @@ class JoerAI:
             (r'tell me (about|something about) (\w+)', ['Im sorry, I dont have detailed information about {1}. Is there anything else I can help with?']),
             (r'what can you do', ['I can chat with you, answer simple questions, and try to help with basic tasks. What would you like to know?']),
         ]
+        
 
     def respond(self, user_input):
         user_input = user_input.lower()
