@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="img/png" href="tuc.png">
+    <title>Internet Browser</title>
+    <style>
+        body {
+            background-image: linear-gradient(90deg, black, #39FF14);
+            font-family: Arial, sans-serif;
+            margin: 1;
+            padding: 0;
+            color: grey;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #searchInput {
+            padding: 15px;
+            width: 100%;
+            font-size: 16px;
+            border: 3px solid;
+            border-radius: 25px;
+        }
+        #searchInput.url {
+            color: blue;
+            text-decoration: underline;
+        }
+        #searchButton {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: 3px dotted;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+
+
+        .search-results {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 1001;
+            color: #39FF14;
+        }
+        .search-results h1 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: red;
+        }
+        .search-results ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .search-results li {
+            margin-bottom: 20px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: red;
+        }
+        .auto-correct {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+            font-weight: bolder;
+            margin-bottom: 50px;
+        } 
+        .title {
+            color: black;
+            font-size: 22px;
+            margin-bottom: 50px;
+        }   
+        img {
+           margin-top: -100px;
+            width: 75px;
+            height: 75px;
+        }
+        p {
+           margin-bottom: 30px;
+        }   
+        .img {
+           color: blue;
+           font-size: 15px;
+        }
+        .outline {
+           color: #39FF14;
+           font-size: 32px;
+           margin-top: -68px;
+        }
+    </style>
+</head>
+<body>
+<center>
+<div class="full-container">
+<div class="title">
+<p class="img"><strong><img src="tuc.png" alt="The Unblocked cat"></strong><p>
+<h2>The Unblocked cat's internet search browser</h2>
+<h2 class="outline">The Unblocked cat's internet search browser</h2>
+</div>
+
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Enter your search query or URL">
+            <button id="searchButton">🔍</button>
+        </div>
+
+        <div id="searchResults" class="search-results"></div>
+</center>
+    </div>
+</div>
+
+<script src="searchData.js"></script>
+    <script>
+        const dictionary = Object.keys(searchResponses);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchButton = document.getElementById('searchButton');
+            searchButton.addEventListener('click', handleSearch);
+
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+            searchInput.addEventListener('input', checkIfUrl);
+
+            const applyColorButton = document.getElementById('applyColorButton');
+            applyColorButton.addEventListener('click', changeBackgroundColor);
+        });
+
+        function isUrl(str) {
+            const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+            return !!pattern.test(str);
+        }
+
+        function checkIfUrl() {
+            const searchInput = document.getElementById("searchInput");
+            if (isUrl(searchInput.value)) {
+                searchInput.classList.add('url');
+            } else {
+                searchInput.classList.remove('url');
+            }
+        }
+
+        function handleSearch() {
+            const searchInput = document.getElementById("searchInput");
+            if (isUrl(searchInput.value)) {
+                window.open(searchInput.value.startsWith('http') ? searchInput.value : 'https://' + searchInput.value, '_blank');
+            } else {
+                performSearch();
+            }
+        }
+
+        function performSearch() {
+            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            const searchResults = document.getElementById("searchResults");
+            searchResults.innerHTML = "";
+
+            let results = [];
+            let correctedInput = searchInput;
+
+
+            if (searchResponses.hasOwnProperty(searchInput)) {
+                results = searchResponses[searchInput];
+            } else {
+                correctedInput = findClosestMatch(searchInput);
+                if (searchResponses.hasOwnProperty(correctedInput)) {
+                    results = searchResponses[correctedInput];
+                }
+            }
+
+            displayResults(results, searchInput, correctedInput);
+        }
+
+        function displayResults(results, originalInput, correctedInput) {
+            const searchResults = document.getElementById("searchResults");
+            searchResults.style.display = "block";
+
+            const closeBtn = document.createElement("span");
+            closeBtn.innerHTML = "<strong>&times;</strong>";
+            closeBtn.className = "close-btn";
+            closeBtn.onclick = () => searchResults.style.display = "none";
+            searchResults.appendChild(closeBtn);
+
+            const heading = document.createElement("h1");
+            heading.textContent = `Search: ${originalInput}`;
+            searchResults.appendChild(heading);
+
+            if (originalInput !== correctedInput) {
+                const autoCorrectMsg = document.createElement("p");
+                autoCorrectMsg.className = "auto-correct";
+                autoCorrectMsg.textContent = `Showing results for: ${correctedInput}`;
+                searchResults.appendChild(autoCorrectMsg);
+            }
+
+            if (results.length === 0) {
+                const noResults = document.createElement("p");
+                noResults.textContent = `Could not find any results for  ${originalInput}.`;
+                searchResults.appendChild(noResults);
+            } else {
+                const ul = document.createElement("ul");
+                results.forEach(item => {
+                    const li = document.createElement("li");
+                    const a = document.createElement("a");
+                    a.href = item.url;
+                    a.innerHTML = `<h4 class="aTitle">${item.title}</h4>`;
+                    a.target = "_blank";
+                    li.appendChild(a);
+                    const description = document.createElement("p");
+                    description.textContent = item.description;
+                    li.appendChild(description);
+                    ul.appendChild(li);
+                });
+                searchResults.appendChild(ul);
+            }
+        }
+
+
+        // Auto-correct functions
+        function levenshteinDistance(a, b) {
+            const matrix = [];
+
+            for (let i = 0; i <= b.length; i++) {
+                matrix[i] = [i];
+            }
+
+            for (let j = 0; j <= a.length; j++) {
+                matrix[0][j] = j;
+            }
+
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j] + 1
+                        );
+                    }
+                }
+            }
+
+            return matrix[b.length][a.length];
+        }
+        
+
+        function findClosestMatch(word) {
+            let closestMatch = word;
+            let minDistance = Infinity;
+
+            for (const dictWord of dictionary) {
+                const distance = levenshteinDistance(word, dictWord);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestMatch = dictWord;
+                }
+            }
+
+            return closestMatch;
+        }
+    </script>
+</body>
+</html>
