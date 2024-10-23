@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Compiler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-grow: 1;
+        }
+        textarea, #output {
+            width: 50%;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: none;
+            font-family: monospace;
+        }
+        #output {
+            border: 1px solid #ccc;
+            overflow: auto;
+        }
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML Compiler</h1>
+    <div class="container">
+        <textarea id="input" placeholder="Enter your HTML code here..."></textarea>
+        <div id="output"></div>
+    </div>
+    <button onclick="compileHTML()">Compile</button>
+
+    <script>
+        function compileHTML() {
+            const input = document.getElementById('input').value;
+            const output = document.getElementById('output');
+            
+            // Clear previous output
+            output.innerHTML = '';
+
+            try {
+                // Create a new iframe to safely render the HTML
+                const iframe = document.createElement('iframe');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+                output.appendChild(iframe);
+
+                // Write the input HTML to the iframe
+                iframe.contentDocument.open();
+                iframe.contentDocument.write(input);
+                iframe.contentDocument.close();
+            } catch (error) {
+                output.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
