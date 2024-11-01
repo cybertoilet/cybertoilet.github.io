@@ -1,302 +1,192 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="img/png" href="tuc.png">
-    <title>Internet Browser</title>
+    <title>Smart Search</title>
     <style>
-        body {
-            background-image: linear-gradient(90deg, black, #39FF14);
-            font-family: Arial, sans-serif;
-            margin: 1;
-            padding: 0;
-            color: grey;
-            font-size: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
+        .search-container {
+            width: 600px;
+            margin: 50px auto;
+            position: relative;
         }
 
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
         #searchInput {
-            padding: 15px;
             width: 100%;
+            padding: 15px;
             font-size: 16px;
-            border: 3px solid;
-            border-radius: 25px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        #searchInput.url {
-            color: blue;
-            text-decoration: underline;
+
+        .suggestions-container {
+            position: absolute;
+            width: 100%;
+            background: white;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
         }
-        #searchButton {
+
+        .suggestion-item {
             padding: 10px 20px;
             cursor: pointer;
-            background-color: white;
-            color: black;
-            border: 3px dotted;
-            border-radius: 20px;
-            font-size: 16px;
         }
 
+        .suggestion-item:hover {
+            background-color: #f5f5f5;
+        }
 
-        .search-results {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            overflow-y: auto;
-            padding: 20px;
-            box-sizing: border-box;
-            z-index: 1001;
-            color: #39FF14;
+        .results-container {
+            width: 600px;
+            margin: 20px auto;
         }
-        .search-results h1 {
-            margin-top: 0;
+
+        .result-item {
             margin-bottom: 20px;
-            color: red;
+            padding: 15px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .search-results ul {
-            list-style-type: none;
-            padding: 0;
+
+        .result-item h3 {
+            margin: 0 0 10px 0;
+            color: #1a0dab;
         }
-        .search-results li {
-            margin-bottom: 20px;
+
+        .result-item a {
+            color: #006621;
+            text-decoration: none;
+            font-size: 14px;
         }
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            cursor: pointer;
-            color: red;
-        }
-        .auto-correct {
-            margin-top: 10px;
-            font-style: italic;
-            color: #666;
-            font-weight: bolder;
-            margin-bottom: 50px;
-        } 
-        .title {
-            color: black;
-            font-size: 22px;
-            margin-bottom: 50px;
-        }   
-        img {
-           margin-top: -100px;
-            width: 75px;
-            height: 75px;
-        }
-        p {
-           margin-bottom: 30px;
-        }   
-        .img {
-           color: blue;
-           font-size: 15px;
-        }
-        .outline {
-           color: #39FF14;
-           font-size: 32px;
-           margin-top: -68px;
-           text-shadow: rgba(0,0,0,0.9);
+
+        .result-item p {
+            margin: 5px 0 0 0;
+            color: #545454;
         }
     </style>
 </head>
 <body>
-<center>
-<div class="full-container">
-<div class="title">
-<p class="img"><strong><img src="tuc.png" alt="The Unblocked cat"></strong><p>
-
-<h2 class="outline">The Unblocked cat's internet search browser</h2>
-</div>
-
-    <div class="container">
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Enter your search query or URL">
-            <button id="searchButton">🔍</button>
-        </div>
-
-        <div id="searchResults" class="search-results"></div>
-</center>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <div id="suggestions" class="suggestions-container"></div>
     </div>
-</div>
+    <div id="searchResults" class="results-container"></div>
 
-<script src="searchData.js"></script>
+    <script src="searchData.js"></script>
     <script>
-        const dictionary = Object.keys(searchResponses);
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsContainer = document.getElementById('suggestions');
+        const searchResults = document.getElementById('searchResults');
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchButton = document.getElementById('searchButton');
-            searchButton.addEventListener('click', handleSearch);
-
-            const searchInput = document.getElementById('searchInput');
-            searchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    handleSearch();
-                }
+        const searchableTerms = Object.keys(searchResponses).reduce((acc, key) => {
+            acc.push(key);
+            searchResponses[key].forEach(item => {
+                acc.push(item.title.toLowerCase());
+                const words = item.description.toLowerCase().split(' ');
+                acc.push(...words.filter(word => word.length > 3));
             });
-            searchInput.addEventListener('input', checkIfUrl);
+            return acc;
+        }, []);
 
-            const applyColorButton = document.getElementById('applyColorButton');
-            applyColorButton.addEventListener('click', changeBackgroundColor);
+        function levenshteinDistance(str1, str2) {
+            const matrix = Array(str2.length + 1).fill().map(() => Array(str1.length + 1).fill(0));
+            
+            for (let i = 0; i <= str1.length; i++) matrix[0][i] = i;
+            for (let j = 0; j <= str2.length; j++) matrix[j][0] = j;
+            
+            for (let j = 1; j <= str2.length; j++) {
+                for (let i = 1; i <= str1.length; i++) {
+                    const cost = str1[i-1] === str2[j-1] ? 0 : 1;
+                    matrix[j][i] = Math.min(
+                        matrix[j-1][i] + 1,
+                        matrix[j][i-1] + 1,
+                        matrix[j-1][i-1] + cost
+                    );
+                }
+            }
+            return matrix[str2.length][str1.length];
+        }
+
+        function getSuggestions(input) {
+            if (!input) return [];
+            input = input.toLowerCase();
+            
+            return searchableTerms
+                .filter(term => {
+                    const distance = levenshteinDistance(input, term.substring(0, input.length));
+                    return distance <= 2 || term.includes(input);
+                })
+                .slice(0, 5);
+        }
+
+        function displaySuggestions(suggestions) {
+            suggestionsContainer.innerHTML = '';
+            if (suggestions.length === 0) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+            
+            suggestions.forEach(suggestion => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.textContent = suggestion;
+                div.onclick = () => {
+                    searchInput.value = suggestion;
+                    performSearch(suggestion);
+                    suggestionsContainer.style.display = 'none';
+                };
+                suggestionsContainer.appendChild(div);
+            });
+            
+            suggestionsContainer.style.display = 'block';
+        }
+
+        function performSearch(query) {
+            searchResults.innerHTML = '';
+            query = query.toLowerCase();
+            
+            let results = [];
+            
+            Object.entries(searchResponses).forEach(([category, items]) => {
+                if (category.toLowerCase().includes(query)) {
+                    results.push(...items);
+                }
+                
+                items.forEach(item => {
+                    if (item.title.toLowerCase().includes(query) ||
+                        item.description.toLowerCase().includes(query)) {
+                        results.push(item);
+                    }
+                });
+            });
+            
+            results = [...new Set(results)];
+            
+            results.forEach(result => {
+                const div = document.createElement('div');
+                div.className = 'result-item';
+                div.innerHTML = `
+                    <h3><a href="${result.url}" target="_blank">${result.title}</a></h3>
+                    <a href="${result.url}" target="_blank">${result.url}</a>
+                    <p>${result.description}</p>
+                `;
+                searchResults.appendChild(div);
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const suggestions = getSuggestions(e.target.value);
+            displaySuggestions(suggestions);
+            performSearch(e.target.value);
         });
 
-        function isUrl(str) {
-            const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-                '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-            return !!pattern.test(str);
-        }
-
-        function checkIfUrl() {
-            const searchInput = document.getElementById("searchInput");
-            if (isUrl(searchInput.value)) {
-                searchInput.classList.add('url');
-            } else {
-                searchInput.classList.remove('url');
+        document.addEventListener('click', (e) => {
+            if (!suggestionsContainer.contains(e.target) && e.target !== searchInput) {
+                suggestionsContainer.style.display = 'none';
             }
-        }
-
-        function handleSearch() {
-            const searchInput = document.getElementById("searchInput");
-            if (isUrl(searchInput.value)) {
-                window.open(searchInput.value.startsWith('http') ? searchInput.value : 'https://' + searchInput.value, '_blank');
-            } else {
-                performSearch();
-            }
-        }
-
-        function performSearch() {
-            const searchInput = document.getElementById("searchInput").value.toLowerCase();
-            const searchResults = document.getElementById("searchResults");
-            searchResults.innerHTML = "";
-
-            let results = [];
-            let correctedInput = searchInput;
-
-
-            if (searchResponses.hasOwnProperty(searchInput)) {
-                results = searchResponses[searchInput];
-            } else {
-                correctedInput = findClosestMatch(searchInput);
-                if (searchResponses.hasOwnProperty(correctedInput)) {
-                    results = searchResponses[correctedInput];
-                }
-            }
-
-            displayResults(results, searchInput, correctedInput);
-        }
-
-        function displayResults(results, originalInput, correctedInput) {
-            const searchResults = document.getElementById("searchResults");
-            searchResults.style.display = "block";
-
-            const closeBtn = document.createElement("span");
-            closeBtn.innerHTML = "<strong>&times;</strong>";
-            closeBtn.className = "close-btn";
-            closeBtn.onclick = () => searchResults.style.display = "none";
-            searchResults.appendChild(closeBtn);
-
-            const heading = document.createElement("h1");
-            heading.textContent = `Search: ${originalInput}`;
-            searchResults.appendChild(heading);
-
-            if (originalInput !== correctedInput) {
-                const autoCorrectMsg = document.createElement("p");
-                autoCorrectMsg.className = "auto-correct";
-                autoCorrectMsg.textContent = `Showing results for: ${correctedInput}`;
-                searchResults.appendChild(autoCorrectMsg);
-            }
-
-            if (results.length === 0) {
-                const noResults = document.createElement("p");
-                noResults.textContent = `Could not find any results for  ${originalInput}.`;
-                searchResults.appendChild(noResults);
-            } else {
-                const ul = document.createElement("ul");
-                results.forEach(item => {
-                    const li = document.createElement("li");
-                    const a = document.createElement("a");
-                    a.href = item.url;
-                    a.innerHTML = `<h4 class="aTitle">${item.title}</h4>`;
-                    a.target = "_blank";
-                    li.appendChild(a);
-                    const description = document.createElement("p");
-                    description.textContent = item.description;
-                    li.appendChild(description);
-                    ul.appendChild(li);
-                });
-                searchResults.appendChild(ul);
-            }
-        }
-
-
-        // Auto-correct functions
-        function levenshteinDistance(a, b) {
-            const matrix = [];
-
-            for (let i = 0; i <= b.length; i++) {
-                matrix[i] = [i];
-            }
-
-            for (let j = 0; j <= a.length; j++) {
-                matrix[0][j] = j;
-            }
-
-            for (let i = 1; i <= b.length; i++) {
-                for (let j = 1; j <= a.length; j++) {
-                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                        matrix[i][j] = matrix[i - 1][j - 1];
-                    } else {
-                        matrix[i][j] = Math.min(
-                            matrix[i - 1][j - 1] + 1,
-                            matrix[i][j - 1] + 1,
-                            matrix[i - 1][j] + 1
-                        );
-                    }
-                }
-            }
-
-            return matrix[b.length][a.length];
-        }
-        
-
-        function findClosestMatch(word) {
-            let closestMatch = word;
-            let minDistance = Infinity;
-
-            for (const dictWord of dictionary) {
-                const distance = levenshteinDistance(word, dictWord);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestMatch = dictWord;
-                }
-            }
-
-            return closestMatch;
-        }
+        });
     </script>
 </body>
 </html>
