@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Smart Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -17,9 +18,10 @@
         }
 
         #searchInput {
+            font-family: 'Press Start 2P', cursive;
             width: 100%;
             padding: 12px 45px;
-            font-size: 16px;
+            font-size: 14px;
             border: 1px solid #dfe1e5;
             border-radius: 24px;
             outline: none;
@@ -50,9 +52,10 @@
         }
 
         .suggestion-item {
-            padding: 12px 45px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            padding: 16px 45px;
             cursor: pointer;
-            font-size: 16px;
             color: #212121;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%239aa0a6" width="18px" height="18px"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>') no-repeat 15px center;
         }
@@ -76,6 +79,7 @@
             margin: 0 0 5px 0;
             font-weight: normal;
             font-size: 20px;
+            font-family: 'Press Start 2P', cursive;
         }
 
         .result-item h3 a {
@@ -91,17 +95,29 @@
             color: #006621;
             font-size: 14px;
             margin-bottom: 3px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
         }
 
         .result-item .description {
             color: #4d5156;
             font-size: 14px;
             line-height: 1.58;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
         }
 
         .divider {
             border-bottom: 1px solid #dfe1e5;
             margin: 0 -10px 20px;
+        }
+
+        .no-results {
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            padding: 20px;
+            color: #4d5156;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -183,8 +199,9 @@
 
         function performSearch(query) {
             searchResults.innerHTML = '';
-            query = query.toLowerCase();
+            if (!query) return;
             
+            query = query.toLowerCase();
             let results = [];
             
             Object.entries(searchResponses).forEach(([category, items]) => {
@@ -201,6 +218,11 @@
             });
             
             results = [...new Set(results)];
+            
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="no-results">No results found</div>';
+                return;
+            }
             
             results.forEach(result => {
                 const div = document.createElement('div');
