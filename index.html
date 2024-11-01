@@ -1,252 +1,256 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Smart Search</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocky Browser</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         body {
+            background-image: linear-gradient(90deg, #000066, #660000);
+            font-family: 'Press Start 2P', cursive;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background: #fff;
+            color: #0f0;
         }
 
         .search-container {
-            width: 600px;
-            margin: 20px auto;
-            position: relative;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1001;
         }
 
         #searchInput {
+            padding: 15px;
+            width: 500px;
             font-family: 'Press Start 2P', cursive;
-            width: 100%;
-            padding: 12px 45px;
-            font-size: 14px;
-            border: 1px solid #dfe1e5;
-            border-radius: 24px;
+            border: 4px solid #fff;
+            background: #000;
+            color: #0f0;
             outline: none;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%239aa0a6" width="18px" height="18px"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>') no-repeat 15px center;
         }
 
-        #searchInput:hover {
-            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
-            border-color: rgba(223,225,229,0);
-        }
-
-        #searchInput:focus {
-            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
-            border-color: rgba(223,225,229,0);
-        }
-
-        .suggestions-container {
-            position: absolute;
-            width: 100%;
-            background: white;
-            border-radius: 0 0 24px 24px;
-            box-shadow: 0 4px 6px rgba(32,33,36,0.28);
-            display: none;
-            z-index: 1000;
-            margin-top: -1px;
-            border: 1px solid #dfe1e5;
-            border-top: none;
-        }
-
-        .suggestion-item {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 12px;
-            padding: 16px 45px;
+        #searchButton {
+            padding: 15px;
             cursor: pointer;
-            color: #212121;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%239aa0a6" width="18px" height="18px"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>') no-repeat 15px center;
+            width: 75px;
+            font-family: 'Press Start 2P', cursive;
+            border: 4px solid #fff;
+            background: #000;
+            color: #0f0;
         }
 
-        .suggestion-item:hover {
-            background-color: #f8f9fa;
+        #searchButton:hover {
+            background: #0f0;
+            color: #000;
         }
 
-        .results-container {
-            width: 600px;
-            margin: 20px auto;
-            padding: 20px 0;
+        .search-results {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            border: 4px solid #0f0;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 1001;
+            color: #0f0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #0f0;
+        }
+
+        .close-btn:hover {
+            color: #fff;
         }
 
         .result-item {
             margin-bottom: 25px;
-            padding: 0 10px;
+            padding: 15px;
+            border: 4px solid #0f0;
         }
 
         .result-item h3 {
-            margin: 0 0 5px 0;
-            font-weight: normal;
-            font-size: 20px;
-            font-family: 'Press Start 2P', cursive;
+            margin: 0 0 15px 0;
         }
 
         .result-item h3 a {
-            color: #1a0dab;
+            color: #0f0;
             text-decoration: none;
         }
 
-        .result-item h3 a:hover {
-            text-decoration: underline;
-        }
-
         .result-item .url {
-            color: #006621;
-            font-size: 14px;
-            margin-bottom: 3px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 10px;
+            color: #0ff;
+            margin-bottom: 10px;
+            word-break: break-all;
         }
 
         .result-item .description {
-            color: #4d5156;
-            font-size: 14px;
-            line-height: 1.58;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 10px;
+            color: #fff;
         }
 
-        .divider {
-            border-bottom: 1px solid #dfe1e5;
-            margin: 0 -10px 20px;
-        }
-
-        .no-results {
-            font-family: 'Press Start 2P', cursive;
+        .title {
             text-align: center;
+            color: #0f0;
+            font-size: 24px;
+            margin: 40px 0;
+            text-shadow: 4px 4px #000;
+            -webkit-text-stroke: 2px #fff;
+        }
+
+        .content {
             padding: 20px;
-            color: #4d5156;
-            font-size: 12px;
+            margin-top: 80px;
+        }
+
+        .result-item:hover {
+            background: #001100;
         }
     </style>
 </head>
 <body>
+    <div class="title">BLOCKY BROWSER</div>
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search...">
-        <div id="suggestions" class="suggestions-container"></div>
+        <input type="text" id="searchInput" placeholder="Search the blocky web...">
+        <button id="searchButton">🔍</button>
     </div>
-    <div id="searchResults" class="results-container"></div>
+    <div id="searchResults" class="search-results"></div>
+    <div class="content">
+        <!-- Main content will be dynamically populated -->
+    </div>
 
     <script src="searchData.js"></script>
     <script>
-        const searchInput = document.getElementById('searchInput');
-        const suggestionsContainer = document.getElementById('suggestions');
-        const searchResults = document.getElementById('searchResults');
+        function levenshteinDistance(a, b) {
+            const matrix = [];
+            for (let i = 0; i <= b.length; i++) {
+                matrix[i] = [i];
+            }
+            for (let j = 0; j <= a.length; j++) {
+                matrix[0][j] = j;
+            }
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j] + 1
+                        );
+                    }
+                }
+            }
+            return matrix[b.length][a.length];
+        }
 
-        const searchableTerms = Object.keys(searchResponses).reduce((acc, key) => {
-            acc.push(key);
+        function findClosestMatch(word, dictionary) {
+            let closestMatch = '';
+            let minDistance = Infinity;
+            for (const dictWord of dictionary) {
+                const distance = levenshteinDistance(word, dictWord);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestMatch = dictWord;
+                }
+            }
+            return closestMatch;
+        }
+
+        const dictionary = Object.keys(searchResponses).reduce((acc, key) => {
+            acc.push(key.toLowerCase());
             searchResponses[key].forEach(item => {
                 acc.push(item.title.toLowerCase());
                 const words = item.description.toLowerCase().split(' ');
                 acc.push(...words.filter(word => word.length > 3));
             });
-            return acc;
+            return [...new Set(acc)];
         }, []);
 
-        function levenshteinDistance(str1, str2) {
-            const matrix = Array(str2.length + 1).fill().map(() => Array(str1.length + 1).fill(0));
-            
-            for (let i = 0; i <= str1.length; i++) matrix[0][i] = i;
-            for (let j = 0; j <= str2.length; j++) matrix[j][0] = j;
-            
-            for (let j = 1; j <= str2.length; j++) {
-                for (let i = 1; i <= str1.length; i++) {
-                    const cost = str1[i-1] === str2[j-1] ? 0 : 1;
-                    matrix[j][i] = Math.min(
-                        matrix[j-1][i] + 1,
-                        matrix[j][i-1] + 1,
-                        matrix[j-1][i-1] + cost
-                    );
+        function autoCorrect(input) {
+            const words = input.split(' ');
+            const correctedWords = words.map(word => {
+                if (dictionary.includes(word.toLowerCase())) {
+                    return word;
+                } else {
+                    return findClosestMatch(word.toLowerCase(), dictionary);
                 }
-            }
-            return matrix[str2.length][str1.length];
-        }
-
-        function getSuggestions(input) {
-            if (!input) return [];
-            input = input.toLowerCase();
-            
-            return searchableTerms
-                .filter(term => {
-                    const distance = levenshteinDistance(input, term.substring(0, input.length));
-                    return distance <= 2 || term.includes(input);
-                })
-                .slice(0, 5);
-        }
-
-        function displaySuggestions(suggestions) {
-            suggestionsContainer.innerHTML = '';
-            if (suggestions.length === 0) {
-                suggestionsContainer.style.display = 'none';
-                return;
-            }
-            
-            suggestions.forEach(suggestion => {
-                const div = document.createElement('div');
-                div.className = 'suggestion-item';
-                div.textContent = suggestion;
-                div.onclick = () => {
-                    searchInput.value = suggestion;
-                    performSearch(suggestion);
-                    suggestionsContainer.style.display = 'none';
-                };
-                suggestionsContainer.appendChild(div);
             });
-            
-            suggestionsContainer.style.display = 'block';
+            return correctedWords.join(' ');
         }
 
-        function performSearch(query) {
-            searchResults.innerHTML = '';
-            if (!query) return;
-            
-            query = query.toLowerCase();
+        function performSearch() {
+            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            const correctedInput = autoCorrect(searchInput);
+            const searchResults = document.getElementById("searchResults");
+            searchResults.innerHTML = "";
+
             let results = [];
-            
             Object.entries(searchResponses).forEach(([category, items]) => {
-                if (category.toLowerCase().includes(query)) {
+                if (category.toLowerCase().includes(correctedInput)) {
                     results.push(...items);
                 }
-                
                 items.forEach(item => {
-                    if (item.title.toLowerCase().includes(query) ||
-                        item.description.toLowerCase().includes(query)) {
+                    if (item.title.toLowerCase().includes(correctedInput) ||
+                        item.description.toLowerCase().includes(correctedInput)) {
                         results.push(item);
                     }
                 });
             });
-            
+
             results = [...new Set(results)];
-            
+            displayResults(results, correctedInput);
+        }
+
+        function displayResults(results, query) {
+            const searchResults = document.getElementById("searchResults");
+            searchResults.style.display = "block";
+            searchResults.innerHTML = `
+                <span class="close-btn" onclick="document.getElementById('searchResults').style.display='none'">&times;</span>
+                <h2>Results for: ${query}</h2>
+            `;
+
             if (results.length === 0) {
-                searchResults.innerHTML = '<div class="no-results">No results found</div>';
+                searchResults.innerHTML += '<div class="result-item">No results found</div>';
                 return;
             }
-            
+
             results.forEach(result => {
-                const div = document.createElement('div');
-                div.className = 'result-item';
-                div.innerHTML = `
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'result-item';
+                resultDiv.innerHTML = `
                     <h3><a href="${result.url}" target="_blank">${result.title}</a></h3>
                     <div class="url">${result.url}</div>
                     <div class="description">${result.description}</div>
-                    <div class="divider"></div>
                 `;
-                searchResults.appendChild(div);
+                searchResults.appendChild(resultDiv);
             });
         }
 
-        searchInput.addEventListener('input', (e) => {
-            const suggestions = getSuggestions(e.target.value);
-            displaySuggestions(suggestions);
-            performSearch(e.target.value);
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchButton = document.getElementById('searchButton');
+            searchButton.addEventListener('click', performSearch);
 
-        document.addEventListener('click', (e) => {
-            if (!suggestionsContainer.contains(e.target) && e.target !== searchInput) {
-                suggestionsContainer.style.display = 'none';
-            }
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
         });
     </script>
 </body>
