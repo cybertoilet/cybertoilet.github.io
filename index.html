@@ -3,19 +3,37 @@
 <head>
     <title>Smart Search</title>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #fff;
+        }
+
         .search-container {
             width: 600px;
-            margin: 50px auto;
+            margin: 20px auto;
             position: relative;
         }
 
         #searchInput {
             width: 100%;
-            padding: 15px;
+            padding: 12px 45px;
             font-size: 16px;
-            border: 1px solid #ddd;
+            border: 1px solid #dfe1e5;
             border-radius: 24px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            outline: none;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%239aa0a6" width="18px" height="18px"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>') no-repeat 15px center;
+        }
+
+        #searchInput:hover {
+            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+            border-color: rgba(223,225,229,0);
+        }
+
+        #searchInput:focus {
+            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+            border-color: rgba(223,225,229,0);
         }
 
         .suggestions-container {
@@ -23,47 +41,67 @@
             width: 100%;
             background: white;
             border-radius: 0 0 24px 24px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(32,33,36,0.28);
             display: none;
             z-index: 1000;
+            margin-top: -1px;
+            border: 1px solid #dfe1e5;
+            border-top: none;
         }
 
         .suggestion-item {
-            padding: 10px 20px;
+            padding: 12px 45px;
             cursor: pointer;
+            font-size: 16px;
+            color: #212121;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%239aa0a6" width="18px" height="18px"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>') no-repeat 15px center;
         }
 
         .suggestion-item:hover {
-            background-color: #f5f5f5;
+            background-color: #f8f9fa;
         }
 
         .results-container {
             width: 600px;
             margin: 20px auto;
+            padding: 20px 0;
         }
 
         .result-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            border-radius: 8px;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            padding: 0 10px;
         }
 
         .result-item h3 {
-            margin: 0 0 10px 0;
+            margin: 0 0 5px 0;
+            font-weight: normal;
+            font-size: 20px;
+        }
+
+        .result-item h3 a {
             color: #1a0dab;
-        }
-
-        .result-item a {
-            color: #006621;
             text-decoration: none;
-            font-size: 14px;
         }
 
-        .result-item p {
-            margin: 5px 0 0 0;
-            color: #545454;
+        .result-item h3 a:hover {
+            text-decoration: underline;
+        }
+
+        .result-item .url {
+            color: #006621;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .result-item .description {
+            color: #4d5156;
+            font-size: 14px;
+            line-height: 1.58;
+        }
+
+        .divider {
+            border-bottom: 1px solid #dfe1e5;
+            margin: 0 -10px 20px;
         }
     </style>
 </head>
@@ -169,8 +207,9 @@
                 div.className = 'result-item';
                 div.innerHTML = `
                     <h3><a href="${result.url}" target="_blank">${result.title}</a></h3>
-                    <a href="${result.url}" target="_blank">${result.url}</a>
-                    <p>${result.description}</p>
+                    <div class="url">${result.url}</div>
+                    <div class="description">${result.description}</div>
+                    <div class="divider"></div>
                 `;
                 searchResults.appendChild(div);
             });
