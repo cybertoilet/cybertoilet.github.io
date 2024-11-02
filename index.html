@@ -12,16 +12,29 @@
             margin: 0;
             padding: 0;
             color: #0f0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .title {
+            text-align: center;
+            color: #0f0;
+            font-size: 24px;
+            margin: 40px 0;
+            text-shadow: 4px 4px #000;
+            -webkit-text-stroke: 2px #fff;
         }
 
         .search-container {
-            position: fixed;
-            top: 20px;
+            position: absolute;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             display: flex;
             gap: 10px;
-            z-index: 1001;
+            z-index: 1000;
             width: 600px;
         }
 
@@ -46,6 +59,34 @@
         }
 
         #searchButton:hover {
+            background: #0f0;
+            color: #000;
+        }
+
+        .suggestions-container {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 500px;
+            background: #000;
+            border: 4px solid #fff;
+            border-top: none;
+            display: none;
+            z-index: 999;
+        }
+
+        .suggestion-item {
+            padding: 15px;
+            cursor: pointer;
+            color: #0f0;
+            border-bottom: 2px solid #0f0;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
             background: #0f0;
             color: #000;
         }
@@ -104,15 +145,6 @@
             color: #fff;
         }
 
-        .title {
-            text-align: center;
-            color: #0f0;
-            font-size: 24px;
-            margin: 40px 0;
-            text-shadow: 4px 4px #000;
-            -webkit-text-stroke: 2px #fff;
-        }
-
         .content {
             padding: 20px;
             margin-top: 80px;
@@ -128,132 +160,221 @@
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search the blocky web...">
         <button id="searchButton">🔍</button>
+        <div id="suggestions" class="suggestions-container"></div>
     </div>
     <div id="searchResults" class="search-results"></div>
-    <div class="content">
-        <!-- Main content will be dynamically populated -->
-    </div>
 
     <script src="searchData.js"></script>
     <script>
-        function levenshteinDistance(a, b) {
-            const matrix = [];
-            for (let i = 0; i <= b.length; i++) {
-                matrix[i] = [i];
+// Add your 2000 English words here
+const englishWordList = [
+    "abandon", "ability", "able", "about", "above", "abroad", "absence", "absolute"
+    // Add all your words here...
+];
+
+function levenshteinDistance(a, b) {
+    const matrix = [];
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1,
+                    matrix[i][j - 1] + 1,
+                    matrix[i - 1][j] + 1
+                );
             }
-            for (let j = 0; j <= a.length; j++) {
-                matrix[0][j] = j;
+        }
+    }
+    return matrix[b.length][a.length];
+}
+
+function isEnglishWord(word) {
+    return englishWordList.includes(word.toLowerCase());
+}
+
+function findClosestMatch(word, dictionary) {
+    let closestMatch = '';
+    let minDistance = Infinity;
+    for (const dictWord of dictionary) {
+        const distance = levenshteinDistance(word, dictWord);
+        if (distance < minDistance) {
+            minDistance = distance;
+            closestMatch = dictWord;
+        }
+    }
+    return closestMatch;
+}
+
+const dictionary = Object.keys(searchResponses).reduce((acc, key) => {
+    acc.push(key.toLowerCase());
+    searchResponses[key].forEach(item => {
+        acc.push(item.title.toLowerCase());
+        const words = item.description.toLowerCase().split(' ');
+        acc.push(...words.filter(word => word.length > 3));
+    });
+    return [...new Set(acc)];
+}, []);
+
+function getSuggestions(input) {
+    if (!input) return [];
+    input = input.toLowerCase();
+    
+    const searchDataSuggestions = dictionary
+        .filter(term => term.includes(input))
+        .slice(0, 3);
+    
+    const englishWordSuggestions = englishWordList
+        .filter(word => word.includes(input))
+        .slice(0, 2);
+    
+    return [...new Set([...searchDataSuggestions, ...englishWordSuggestions])];
+}
+
+function displaySuggestions(suggestions) {
+    const suggestionsContainer = document.getElementById('suggestions');
+    suggestionsContainer.innerHTML = '';
+    
+    if (suggestions.length === 0) {
+        suggestionsContainer.style.display = 'none';
+        return;
+    }
+    
+    suggestions.forEach(suggestion => {
+        const div = document.createElement('div');
+        div.className = 'suggestion-item';
+        div.textContent = suggestion;
+        div.onclick = () => {
+            document.getElementById('searchInput').value = suggestion;
+            performSearch();
+            suggestionsContainer.style.display = 'none';
+        };
+        suggestionsContainer.appendChild(div);
+    });
+    
+    suggestionsContainer.style.display = 'block';
+}
+
+function autoCorrect(input) {
+    const words = input.split(' ');
+    const correctedWords = words.map(word => {
+        if (dictionary.includes(word.toLowerCase()) || englishWordList.includes(word.toLowerCase())) {
+            return word;
+        } else {
+            return findClosestMatch(word.toLowerCase(), [...dictionary, ...englishWordList]);
+        }
+    });
+    return correctedWords.join(' ');
+}
+
+function performSearch() {
+    const searchInput = document.getElementById("searchInput").value;
+    const searchTerms = searchInput.split(' ');
+    const correctedInput = autoCorrect(searchInput.toLowerCase());
+    const searchResults = document.getElementById("searchResults");
+    searchResults.innerHTML = "";
+
+    let results = [];
+    let hasSearchDataMatches = false;
+
+    Object.entries(searchResponses).forEach(([category, items]) => {
+        if (category.toLowerCase().includes(correctedInput)) {
+            results.push(...items);
+            hasSearchDataMatches = true;
+        }
+        items.forEach(item => {
+            if (item.title.toLowerCase().includes(correctedInput) ||
+                item.description.toLowerCase().includes(correctedInput)) {
+                results.push(item);
+                hasSearchDataMatches = true;
             }
-            for (let i = 1; i <= b.length; i++) {
-                for (let j = 1; j <= a.length; j++) {
-                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                        matrix[i][j] = matrix[i - 1][j - 1];
-                    } else {
-                        matrix[i][j] = Math.min(
-                            matrix[i - 1][j - 1] + 1,
-                            matrix[i][j - 1] + 1,
-                            matrix[i - 1][j] + 1
-                        );
-                    }
-                }
-            }
-            return matrix[b.length][a.length];
-        }
-
-        function findClosestMatch(word, dictionary) {
-            let closestMatch = '';
-            let minDistance = Infinity;
-            for (const dictWord of dictionary) {
-                const distance = levenshteinDistance(word, dictWord);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestMatch = dictWord;
-                }
-            }
-            return closestMatch;
-        }
-
-        const dictionary = Object.keys(searchResponses).reduce((acc, key) => {
-            acc.push(key.toLowerCase());
-            searchResponses[key].forEach(item => {
-                acc.push(item.title.toLowerCase());
-                const words = item.description.toLowerCase().split(' ');
-                acc.push(...words.filter(word => word.length > 3));
-            });
-            return [...new Set(acc)];
-        }, []);
-
-        function autoCorrect(input) {
-            const words = input.split(' ');
-            const correctedWords = words.map(word => {
-                if (dictionary.includes(word.toLowerCase())) {
-                    return word;
-                } else {
-                    return findClosestMatch(word.toLowerCase(), dictionary);
-                }
-            });
-            return correctedWords.join(' ');
-        }
-
-        function performSearch() {
-            const searchInput = document.getElementById("searchInput").value.toLowerCase();
-            const correctedInput = autoCorrect(searchInput);
-            const searchResults = document.getElementById("searchResults");
-            searchResults.innerHTML = "";
-
-            let results = [];
-            Object.entries(searchResponses).forEach(([category, items]) => {
-                if (category.toLowerCase().includes(correctedInput)) {
-                    results.push(...items);
-                }
-                items.forEach(item => {
-                    if (item.title.toLowerCase().includes(correctedInput) ||
-                        item.description.toLowerCase().includes(correctedInput)) {
-                        results.push(item);
-                    }
-                });
-            });
-
-            results = [...new Set(results)];
-            displayResults(results, correctedInput);
-        }
-
-        function displayResults(results, query) {
-            const searchResults = document.getElementById("searchResults");
-            searchResults.style.display = "block";
-            searchResults.innerHTML = `
-                <span class="close-btn" onclick="document.getElementById('searchResults').style.display='none'">&times;</span>
-                <h2>Results for: ${query}</h2>
-            `;
-
-            if (results.length === 0) {
-                searchResults.innerHTML += '<div class="result-item">No results found</div>';
-                return;
-            }
-
-            results.forEach(result => {
-                const resultDiv = document.createElement('div');
-                resultDiv.className = 'result-item';
-                resultDiv.innerHTML = `
-                    <h3><a href="${result.url}" target="_blank">${result.title}</a></h3>
-                    <div class="url">${result.url}</div>
-                    <div class="description">${result.description}</div>
-                `;
-                searchResults.appendChild(resultDiv);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchButton = document.getElementById('searchButton');
-            searchButton.addEventListener('click', performSearch);
-
-            const searchInput = document.getElementById('searchInput');
-            searchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    performSearch();
-                }
-            });
         });
+    });
+
+    if (!hasSearchDataMatches) {
+        searchTerms.forEach(term => {
+            if (isEnglishWord(term)) {
+                results.unshift(
+                    { 
+                        title: `Dictionary: ${term}`, 
+                        url: `https://rileeyyy.github.io/dictionary?word=${term}`,
+                        description: "Look up word definitions, synonyms, and more" 
+                    },
+                    { 
+                        title: `Merriam-Webster: ${term}`, 
+                        url: `https://www.merriam-webster.com/dictionary/${term}`,
+                        description: "America's most trusted dictionary" 
+                    },
+                    { 
+                        title: `Cambridge Dictionary: ${term}`, 
+                        url: `https://dictionary.cambridge.org/dictionary/english/${term}`,
+                        description: "Meanings & definitions from Cambridge" 
+                    }
+                );
+            }
+        });
+    }
+
+    results = [...new Set(results)];
+    displayResults(results, correctedInput);
+}
+
+function displayResults(results, query) {
+    const searchResults = document.getElementById("searchResults");
+    searchResults.style.display = "block";
+    searchResults.innerHTML = `
+        <span class="close-btn" onclick="document.getElementById('searchResults').style.display='none'">&times;</span>
+        <h2>Results for: ${query}</h2>
+    `;
+
+    if (results.length === 0) {
+        searchResults.innerHTML += '<div class="result-item">No results found</div>';
+        return;
+    }
+
+    results.forEach(result => {
+        const resultDiv = document.createElement('div');
+        resultDiv.className = 'result-item';
+        resultDiv.innerHTML = `
+            <h3><a href="${result.url}" target="_blank">${result.title}</a></h3>
+            <div class="url">${result.url}</div>
+            <div class="description">${result.description}</div>
+        `;
+        searchResults.appendChild(resultDiv);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const searchButton = document.getElementById('searchButton');
+    const searchInput = document.getElementById('searchInput');
+
+    searchButton.addEventListener('click', performSearch);
+    
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    searchInput.addEventListener('input', (e) => {
+        const suggestions = getSuggestions(e.target.value);
+        displaySuggestions(suggestions);
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-container')) {
+            document.getElementById('suggestions').style.display = 'none';
+        }
+    });
+});
+
     </script>
 </body>
 </html>
