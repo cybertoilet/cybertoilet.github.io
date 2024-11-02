@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blocky Browser</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-        <link href="Blocky-browser-image.png" rel="stylesheet">
+    <link href="Blocky-browser-image.png" rel="stylesheet">
     <style>
         body {
             background-image: linear-gradient(90deg, #000066, #660000);
@@ -118,9 +116,11 @@
         .close-btn:hover {
             color: #fff;
         }
+
         .close-btn:active {
             color: red;
         }
+
         .result-item {
             margin-bottom: 25px;
             padding: 15px;
@@ -137,7 +137,7 @@
         }
 
         .result-item .url {
-            color: #0ff;
+            color: #00f; /* Blue color for URLs */
             margin-bottom: 10px;
             word-break: break-all;
         }
@@ -154,9 +154,10 @@
         .result-item:hover {
             background: #001100;
         }
+
         .search-png {
-           width: 16px;
-           height: 16px;
+            width: 16px;
+            height: 16px;
         }
     </style>
 </head>
@@ -171,261 +172,139 @@
 
     <script src="searchData.js"></script>
     <script>
-// Add your 2000 English words here
-const englishWordList = [
-"ability", "the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at",
-"this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there",
-"their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "can", "like", "time", "just", "him", 
-"know", "take", "person", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", 
-"look", "only", "come", "its", "over", "think", "also", "back", "after", "use", "two", "how", "our", "work", "first", 
-"well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us", "such", "no", "here", 
-"where", "why", "when", "same", "each", "few", "might", "own", "those", "through", "down", "should", "someone", 
-"something", "everything", "anything", "nothing", "place", "during", "make", "life", "little", "state", "big", 
-"high", "different", "small", "tell", "never", "always", "ever", "still", "every", "part", "while", "both", "end", 
-"begin", "find", "feel", "leave", "put", "keep", "call", "right", "left", "turn", "show", "play", "start", "stop", 
-"read", "write", "speak", "listen", "watch", "believe", "understand", "love", "hate", "hope", "wish", "try", "help", 
-"need", "become", "seem", "appear", "bring", "continue", "succeed", "fail", "wait", "live", "die", "change", 
-"grow", "develop", "build", "destroy", "create", "learn", "teach", "study", "sing", "dance", "run", "walk", 
-"sit", "stand", "fall", "sleep", "wake", "drive", "travel", "move", "stay", "remember", "forget", "prefer", 
-"choose", "decide", "plan", "prepare", "realize", "imagine", "dream", "expect", "search", "lose", "win", "gain", 
-"offer", "accept", "refuse", "deny", "admit", "argue", "discuss", "debate", "explain", "describe", "report", 
-"inform", "advise", "suggest", "recommend", "warn", "criticize", "evaluate", "judge", "may", "shall", "must", 
-"too", "very", "more", "most", "such", "than", "then", "who", "what", "where", "when", "how", "why", "few", 
-"many", "much", "none", "either", "neither", "while", "once", "again", "ever", "never", "sometimes", 
-"often", "rarely", "seldom", "soon", "later", "before", "after", "between", "among", "through", "around", 
-"across", "against", "without", "within", "along", "about", "off", "up", "down", "over", "under", "above", 
-"below", "toward", "during", "until", "despite", "although", "unless", "if", "whether", "since", "friend", 
-"family", "happy", "sad", "angry", "funny", "pretty", "beautiful", "wonderful", "interesting", "disgusting", 
-"delicious", "fantastic", "extraordinary", "unbelievable", "unacceptable", "disappointing", "undeniable", 
-"uncontrollable", "unimaginable", "individual", "responsibility", "communication", "characteristic", 
-"determination", "implementation", "representation", "interpretation", "institution", "organization", 
-"collaboration", "concentration", "contribution", "relationship", "transformation", 
-"Pneumonoultramicroscopicsilicovolcanoconiosis", "Antidisestablishmentarianism", "Floccinaucinihilipilification", 
-"Supercalifragilisticexpialidocious", "Hippopotomonstrosesquippedaliophobia", "Dichlorodifluoromethane", 
-"Electroencephalographically", "Incomprehensibilities", "Uncharacteristically", "Disproportionately", 
-"Unconstitutionality", "Misinterpretation", "Counterproductive", "Incomprehensible", "Overcompensating", 
-"Antiestablishmentarianism", "Uncontrollability", "Overgeneralization", "Deindustrialization", 
-"about", "after", "again", "air", "all", "also", "am", "an", "and", "any", "are", "as", "at", 
-"be", "because", "been", "before", "being", "between", "both", "but", "by", "can", "could", "did", 
-"didn't", "do", "does", "doesn't", "doing", "don't", "down", "each", "for", "from", "get", "give", 
-"go", "had", "hadn't", "has", "hasn't", "have", "haven't", "he", "her", "here", "him", "his", "how", 
-"i", "if", "in", "into", "is", "isn't", "it", "its", "just", "know", "like", "me", "might", "more", 
-"must", "my", "no", "not", "now", "of", "off", "on", "once", "one", "or", "other", "our", "out", 
-"over", "own", "said", "same", "see", "she", "should", "shouldn't", "so", "some", "take", 
-"tell", "than", "that", "the", "their", "them", "then", "there", "these", "they", "this", "those", 
-"time", "to", "too", "up", "us", "very", "was", "wasn't", "we", "were", "what", "when", 
-"where", "which", "who", "will", "with", "would", "you", "your", "abandon", "absence", 
-"absolute", "abstract", "abundance", "academic", "acceptable", "accidental", "accompanied", "accomplish", 
-"accountable", "accumulated", "achievement", "acquaintance", "adaptation", "additional", "advantageous", 
-"affectionate", "aggressive", "agreement", "agriculture", "alternative", "ambassador", "appearance", 
-"application", "appreciation", "arithmetic", "association", "atmosphere", "attractive", "availability", 
-"background", "beautifully", "beneficial", "calculation", "celebration", "challenging", "characteristic", 
-"collaboration", "combination", "communication", "complicated"
-];
+        const englishWordList = [
+            "ability", "the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at",
+            "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there",
+            "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "can", "like", "time", "just", "him", 
+            "know", "take", "person", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", 
+            "look", "only", "come", "its", "over", "think", "also", "back", "after", "use", "two", "how", "our", "work", "first", 
+            "well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us", "such", "no", "here", 
+            "where", "why", "when", "same", "each", "few", "might", "own", "those", "through", "down", "should", "someone", 
+            "something", "everything", "anything", "nothing", "place", "during", "make", "life", "little", "state", "big", 
+            "high", "different", "small", "tell", "never", "always", "ever", "still", "every", "part", "while", "both", "end", 
+            "begin", "find", "feel", "leave", "put", "keep", "call", "right", "left", "turn", "show", "play", "start", "stop", 
+            "read", "write", "speak", "listen", "watch", "believe", "understand", "love", "hate", "hope", "wish", "try", "help", 
+            "need", "become", "seem", "appear", "bring", "continue", "succeed", "fail", "wait", "live", "die", "change", 
+            "grow", "develop", "build", "destroy", "create", "learn", "teach", "study", "sing", "dance", "run", "walk", 
+            "sit", "stand", "fall", "sleep", "wake", "drive", "travel", "move", "stay", "remember", "forget", "prefer", 
+            "choose", "decide", "plan", "prepare", "realize", "imagine", "dream", "expect", "search", "lose", "win", "gain", 
+            "offer", "accept", "refuse", "deny", "admit", "argue", "discuss", "debate", "explain", "describe", "report", 
+            "inform", "advise", "suggest", "recommend", "warn", "criticize", "evaluate", "judge", "may", "shall", "must", 
+            "too", "very", "more", "most", "such", "than", "then", "who", "what", "where", "when", "how", "why", "few", 
+            "many", "much", "none", "either", "neither", "while", "once", "again", "ever", "never", "sometimes", 
+            "often", "rarely", "seldom", "soon", "later", "before", "after", "between", "among", "through", "around", 
+            "across", "against", "without", "within", "along", "about", "off", "up", "down", "over", "under", "above", 
+            "below", "toward", "during", "until", "despite", "except", "like", "such", "as", "because", "since", "if", 
+            "unless", "although", "though", "while", "whereas", "whether", "while", "where", "while", "instead", "instead",
+            // Add more words as needed
+        ];
 
-function levenshteinDistance(a, b) {
-    const matrix = [];
-    for (let i = 0; i <= b.length; i++) {
-        matrix[i] = [i];
-    }
-    for (let j = 0; j <= a.length; j++) {
-        matrix[0][j] = j;
-    }
-    for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-            if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                matrix[i][j] = matrix[i - 1][j - 1];
-            } else {
-                matrix[i][j] = Math.min(
-                    matrix[i - 1][j - 1] + 1,
-                    matrix[i][j - 1] + 1,
-                    matrix[i - 1][j] + 1
-                );
-            }
-        }
-    }
-    return matrix[b.length][a.length];
-}
-
-function isEnglishWord(word) {
-    return englishWordList.includes(word.toLowerCase());
-}
-
-function findClosestMatch(word, dictionary) {
-    let closestMatch = '';
-    let minDistance = Infinity;
-    for (const dictWord of dictionary) {
-        const distance = levenshteinDistance(word, dictWord);
-        if (distance < minDistance) {
-            minDistance = distance;
-            closestMatch = dictWord;
-        }
-    }
-    return closestMatch;
-}
-
-const dictionary = Object.keys(searchResponses).reduce((acc, key) => {
-    acc.push(key.toLowerCase());
-    searchResponses[key].forEach(item => {
-        acc.push(item.title.toLowerCase());
-        const words = item.description.toLowerCase().split(' ');
-        acc.push(...words.filter(word => word.length > 3));
-    });
-    return [...new Set(acc)];
-}, []);
-
-function getSuggestions(input) {
-    if (!input) return [];
-    input = input.toLowerCase();
-    
-    const searchDataSuggestions = dictionary
-        .filter(term => term.includes(input))
-        .slice(0, 3);
-    
-    const englishWordSuggestions = englishWordList
-        .filter(word => word.includes(input))
-        .slice(0, 2);
-    
-    return [...new Set([...searchDataSuggestions, ...englishWordSuggestions])];
-}
-
-function displaySuggestions(suggestions) {
-    const suggestionsContainer = document.getElementById('suggestions');
-    suggestionsContainer.innerHTML = '';
-    
-    if (suggestions.length === 0) {
-        suggestionsContainer.style.display = 'none';
-        return;
-    }
-    
-    suggestions.forEach(suggestion => {
-        const div = document.createElement('div');
-        div.className = 'suggestion-item';
-        div.textContent = suggestion;
-        div.onclick = () => {
-            document.getElementById('searchInput').value = suggestion;
-            performSearch();
-            suggestionsContainer.style.display = 'none';
+        const searchResponses = {
+            gaming: [
+                { title: "Top 10 Video Games of 2024", url: "https://example.com/top-video-games-2024", description: "A comprehensive list of the best video games released this year." },
+                { title: "Best Gaming Consoles", url: "https://example.com/best-gaming-consoles", description: "Comparison of the latest gaming consoles available." }
+            ],
+            selfImprovement: [
+                { title: "5 Habits to Boost Your Productivity", url: "https://example.com/productivity-habits", description: "Simple habits that can improve your productivity." },
+                { title: "Mindfulness Techniques for Beginners", url: "https://example.com/mindfulness-techniques", description: "Learn how to practice mindfulness effectively." }
+            ],
+            cooking: [
+                { title: "Easy Recipes for Beginners", url: "https://example.com/easy-recipes", description: "Simple recipes that anyone can make." },
+                { title: "Cooking Techniques Every Chef Should Know", url: "https://example.com/cooking-techniques", description: "Essential techniques for improving your cooking skills." }
+            ],
+            homeDecor: [
+                { title: "Interior Design Ideas", url: "https://example.com/interior-design-ideas", description: "Creative ideas for decorating your home." },
+                { title: "DIY Home Decor Projects", url: "https://example.com/diy-home-decor", description: "Fun DIY projects to enhance your home decor." }
+            ],
+            localFood: [
+                { title: "Best Restaurants in Town", url: "https://example.com/best-restaurants", description: "A guide to the best local restaurants." },
+                { title: "Food Festivals You Shouldn’t Miss", url: "https://example.com/food-festivals", description: "Explore the top food festivals happening this year." }
+            ],
+            hobbies: [
+                { title: "10 Hobbies to Try This Year", url: "https://example.com/hobbies-to-try", description: "Explore new hobbies that can enrich your life." },
+                { title: "Crafting for Beginners", url: "https://example.com/crafting-beginners", description: "A guide to getting started with crafting." }
+            ],
+            emotionalWellBeing: [
+                { title: "How to Manage Stress", url: "https://example.com/manage-stress", description: "Effective strategies for reducing stress." },
+                { title: "Building Resilience", url: "https://example.com/build-resilience", description: "Tips for becoming more resilient in tough times." }
+            ],
+            fashionInspiration: [
+                { title: "Fashion Trends of 2024", url: "https://example.com/fashion-trends-2024", description: "Stay up-to-date with the latest fashion trends." },
+                { title: "How to Create a Capsule Wardrobe", url: "https://example.com/capsule-wardrobe", description: "A guide to minimalist fashion." }
+            ],
+            wellness: [
+                { title: "The Importance of Self-Care", url: "https://example.com/self-care", description: "Understanding the benefits of self-care." },
+                { title: "Nutrition Tips for a Healthy Life", url: "https://example.com/nutrition-tips", description: "Essential tips for maintaining a healthy diet." }
+            ],
+            homeImprovement: [
+                { title: "DIY Home Repair Guides", url: "https://example.com/diy-repair", description: "Learn how to handle common home repairs yourself." },
+                { title: "Gardening Ideas for Beginners", url: "https://example.com/gardening-ideas", description: "Tips for starting your own garden." }
+            ]
         };
-        suggestionsContainer.appendChild(div);
-    });
-    
-    suggestionsContainer.style.display = 'block';
-}
 
-function autoCorrect(input) {
-    const words = input.split(' ');
-    const correctedWords = words.map(word => {
-        if (dictionary.includes(word.toLowerCase()) || englishWordList.includes(word.toLowerCase())) {
-            return word;
-        } else {
-            return findClosestMatch(word.toLowerCase(), [...dictionary, ...englishWordList]);
-        }
-    });
-    return correctedWords.join(' ');
-}
+        function displayResults(results, query) {
+            const searchResults = document.getElementById("searchResults");
+            searchResults.style.display = "block";
+            searchResults.innerHTML = `
+                <span class="close-btn" onclick="document.getElementById('searchResults').style.display='none'">&times;</span>
+                <h2>Results for: ${query}</h2>
+            `;
 
-function performSearch() {
-    const searchInput = document.getElementById("searchInput").value;
-    const searchTerms = searchInput.split(' ');
-    const correctedInput = autoCorrect(searchInput.toLowerCase());
-    const searchResults = document.getElementById("searchResults");
-    searchResults.innerHTML = "";
-
-    let results = [];
-    let hasSearchDataMatches = false;
-
-    Object.entries(searchResponses).forEach(([category, items]) => {
-        if (category.toLowerCase().includes(correctedInput)) {
-            results.push(...items);
-            hasSearchDataMatches = true;
-        }
-        items.forEach(item => {
-            if (item.title.toLowerCase().includes(correctedInput) ||
-                item.description.toLowerCase().includes(correctedInput)) {
-                results.push(item);
-                hasSearchDataMatches = true;
+            if (results.length === 0) {
+                searchResults.innerHTML += '<div class="result-item">No results found</div>';
+                return;
             }
-        });
-    });
 
-    if (!hasSearchDataMatches) {
-        searchTerms.forEach(term => {
-            if (isEnglishWord(term)) {
-                results.unshift(
-                    { 
-                        title: `Dictionary: ${term}`, 
-                        url: `https://rileeyyy.github.io/dictionary?word=${term}`,
-                        description: "Look up word definitions, synonyms, and more" 
-                    },
-                    { 
-                        title: `Merriam-Webster: ${term}`, 
-                        url: `https://www.merriam-webster.com/dictionary/${term}`,
-                        description: "America's most trusted dictionary" 
-                    },
-                    { 
-                        title: `Cambridge Dictionary: ${term}`, 
-                        url: `https://dictionary.cambridge.org/dictionary/english/${term}`,
-                        description: "Meanings & definitions from Cambridge" 
+            results.forEach(result => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'result-item';
+                resultDiv.innerHTML = `
+                    <h3><a href="${result.url}" target="_blank">${result.title}</a></h3>
+                    <div class="url">${result.url}</div>
+                    <div class="description">${result.description}</div>
+                `;
+                searchResults.appendChild(resultDiv);
+            });
+        }
+
+        document.getElementById("searchButton").addEventListener("click", function() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const results = [];
+
+            // Search through the searchResponses object
+            for (const category in searchResponses) {
+                searchResponses[category].forEach(item => {
+                    if (item.title.toLowerCase().includes(query) || item.description.toLowerCase().includes(query)) {
+                        results.push(item);
                     }
-                );
+                });
+            }
+
+            displayResults(results, query);
+        });
+
+        // Suggestion feature (optional)
+        document.getElementById("searchInput").addEventListener("input", function() {
+            const query = this.value.toLowerCase();
+            const suggestionsContainer = document.getElementById("suggestions");
+            suggestionsContainer.innerHTML = '';
+            if (query.length > 0) {
+                const suggestions = englishWordList.filter(word => word.startsWith(query)).slice(0, 5);
+                suggestions.forEach(suggestion => {
+                    const suggestionDiv = document.createElement('div');
+                    suggestionDiv.className = 'suggestion-item';
+                    suggestionDiv.textContent = suggestion;
+                    suggestionDiv.onclick = () => {
+                        document.getElementById("searchInput").value = suggestion;
+                        suggestionsContainer.innerHTML = '';
+                    };
+                    suggestionsContainer.appendChild(suggestionDiv);
+                });
+                suggestionsContainer.style.display = suggestions.length > 0 ? 'block' : 'none';
+            } else {
+                suggestionsContainer.style.display = 'none';
             }
         });
-    }
-
-    results = [...new Set(results)];
-    displayResults(results, correctedInput);
-}
-
-function displayResults(results, query) {
-    const searchResults = document.getElementById("searchResults");
-    searchResults.style.display = "block";
-    searchResults.innerHTML = `
-        <span class="close-btn" onclick="document.getElementById('searchResults').style.display='none'">&times;</span>
-        <h2>Results for: ${query}</h2>
-    `;
-
-    if (results.length === 0) {
-        searchResults.innerHTML += '<div class="result-item">No results found</div>';
-        return;
-    }
-
-    results.forEach(result => {
-        const resultDiv = document.createElement('div');
-        resultDiv.className = 'result-item';
-        resultDiv.innerHTML = `
-            <h3><a href="${result.url}" target="_blank">${result.title}</a></h3>
-            <div class="url">${result.url}</div>
-            <div class="description">${result.description}</div>
-        `;
-        searchResults.appendChild(resultDiv);
-    });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const searchButton = document.getElementById('searchButton');
-    const searchInput = document.getElementById('searchInput');
-
-    searchButton.addEventListener('click', performSearch);
-    
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
-
-    searchInput.addEventListener('input', (e) => {
-        const suggestions = getSuggestions(e.target.value);
-        displaySuggestions(suggestions);
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-container')) {
-            document.getElementById('suggestions').style.display = 'none';
-        }
-    });
-});
-
     </script>
 </body>
 </html>
