@@ -2,7 +2,7 @@
     "owners projects": [
         { title: "The Unblocked cat", url: "https://joercat.github.io", description: "Welcome to The Unblocked cat, an ad-free unblocked games website." },
         { title: "Search browser", url: "https://cybertoilet.github.io", description: "Welcome to The Unblocked cat's internet search browser, a free and ad-free search browser." },
-        { title: "Meme soundboard", url: "https://joercat.github.io/meme", description: "No description provided :(" },
+        { title: "Meme soundboard", url: "https://joercat.github.io/meme", description: "Are you bored? Do you want to annoy the people around you? Well if so, then come check out our new meme soundboard" },
 
     ],
     "weather": [
@@ -379,7 +379,7 @@
         { title: "Cultural Etiquette", url: "https://www.tripsavvy.com/cultural-etiquette-tips-1486520", description: "Understand cultural etiquette for different countries." },
         { title: "Travel Insurance", url: "https://www.insuremytrip.com", description: "Find and compare travel insurance options." },
     ],
-        };
+        
     "home decor": [
         { title: "Interior Design Inspiration", url: "https://www.pinterest.com", description: "Find inspiration for your interior design projects." },
         { title: "DIY Home Decor", url: "https://www.hgtv.com/design/decorating", description: "Explore DIY projects to beautify your home." },
@@ -638,3 +638,4 @@
         { title: "Equine Care", url: "https://www.equinescienceupdate.com", description: "Learn about caring for horses and ponies." },
         { title: "Goat Care Guide", url: "https://www.thegoatspot.net", description: "Access resources for raising goats." },
     ],
+        };
