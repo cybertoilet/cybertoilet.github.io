@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blocky Browser</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+        <link href="Blocky-browser-image.png" rel="stylesheet">
     <style>
         body {
             background-image: linear-gradient(90deg, #000066, #660000);
@@ -153,13 +154,17 @@
         .result-item:hover {
             background: #001100;
         }
+        .search-png {
+           width: 16px;
+           height: 16px;
+        }
     </style>
 </head>
 <body>
     <div class="title">BLOCKY BROWSER</div>
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search the blocky web...">
-        <button id="searchButton">🔍</button>
+        <button id="searchButton"><img src="Blocky-browser-image.png" type="image/png" class="search-png" alt="🔍"></button>
         <div id="suggestions" class="suggestions-container"></div>
     </div>
     <div id="searchResults" class="search-results"></div>
