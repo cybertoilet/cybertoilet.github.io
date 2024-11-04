@@ -638,4 +638,489 @@
         { title: "Equine Care", url: "https://www.equinescienceupdate.com", description: "Learn about caring for horses and ponies." },
         { title: "Goat Care Guide", url: "https://www.thegoatspot.net", description: "Access resources for raising goats." },
     ],
+                    "sustainable travel": [
+        { title: "Eco-Friendly Travel Tips", url: "https://www.ecowatch.com/sustainable-travel-tips-2645925434.html", description: "Learn how to travel sustainably." },
+        { title: "Green Hotels", url: "https://www.greenhotelsoftheworld.com", description: "Find eco-friendly accommodations worldwide." },
+        { title: "Carbon Offset Programs", url: "https://www.carbonfund.org", description: "Offset your travel carbon footprint." },
+        { title: "Sustainable Travel Destinations", url: "https://www.roughguides.com/article/sustainable-travel-destinations/", description: "Explore the best sustainable travel destinations." },
+        { title: "Volunteer Travel Opportunities", url: "https://www.volunteerabroad.com", description: "Engage in volunteer opportunities while traveling." },
+    ],
+
+    "pet care": [
+        { title: "Pet Nutrition Resources", url: "https://www.petmd.com", description: "Find reliable information on pet nutrition." },
+        { title: "Pet Training Guides", url: "https://www.akc.org/expert-advice/training/", description: "Get tips for training your pets effectively." },
+        { title: "Pet Grooming Tips", url: "https://www.humanesociety.org/resources/pet-grooming-tips", description: "Learn how to groom your pets at home." },
+        { title: "Pet Adoption Resources", url: "https://www.petfinder.com", description: "Find pets available for adoption near you." },
+        { title: "Pet Health and Wellness", url: "https://www.avma.org/resources/pet-owners/petcare", description: "Access resources for your pet's health." },
+    ],
+    
+    "cooking techniques": [
+        { title: "Essential Cooking Skills", url: "https://www.cookinglight.com/cooking-101", description: "Master essential cooking techniques." },
+        { title: "Knife Skills Tutorial", url: "https://www.seriouseats.com/knife-skills-5119054", description: "Learn how to properly use kitchen knives." },
+        { title: "Sauce Making Techniques", url: "https://www.bonappetit.com/story/how-to-make-a-sauce", description: "Discover the art of sauce making." },
+        { title: "Baking Basics", url: "https://www.kingarthurbaking.com/learn/baking-basics", description: "Get started with essential baking techniques." },
+        { title: "Cooking with Herbs and Spices", url: "https://www.epicurious.com/ingredients/herbs-and-spices-101", description: "Enhance your dishes with herbs and spices." },
+    ],
+    
+    "home organization": [
+        { title: "Decluttering Strategies", url: "https://www.theminimalists.com", description: "Learn how to declutter your home effectively." },
+        { title: "Storage Solutions", url: "https://www.ikea.com/us/en/rooms/storage-solutions/", description: "Find innovative storage solutions for your home." },
+        { title: "Organizing Hacks", url: "https://www.apartmenttherapy.com", description: "Explore hacks to organize your living space." },
+        { title: "Time Management Tips", url: "https://www.toggl.com/time-management", description: "Learn tips for managing your time effectively." },
+        { title: "Cleaning Checklists", url: "https://www.cleanmama.com", description: "Get cleaning schedules to keep your home tidy." },
+    ],
+
+    "digital wellness": [
+        { title: "Screen Time Management", url: "https://www.healthychildren.org/English/family-life/Media/Pages/Managing-Screen-Time.aspx", description: "Tips for managing screen time for families." },
+        { title: "Digital Detox Ideas", url: "https://www.healthline.com/health/digital-detox", description: "Explore ideas for a digital detox." },
+        { title: "Online Privacy Tips", url: "https://www.privacypolicies.com/blog/privacy-tips/", description: "Learn how to protect your online privacy." },
+        { title: "Mindful Technology Use", url: "https://www.mindfultechie.com", description: "Practice mindfulness in technology use." },
+        { title: "Tech-Free Activities", url: "https://www.verywellfamily.com/tech-free-activities-for-kids-4174902", description: "Engage in tech-free activities with your family." },
+    ],
+
+    "personal finance": [
+        { title: "Budgeting Basics", url: "https://www.nerdwallet.com/article/finance/how-to-budget", description: "Learn the fundamentals of budgeting." },
+        { title: "Saving for Retirement", url: "https://www.investopedia.com/retirement-planning-5113901", description: "Explore strategies to save for retirement." },
+        { title: "Investing for Beginners", url: "https://www.robinhood.com/us/en/articles/what-is-investing/", description: "Get started with investing basics." },
+        { title: "Debt Management Strategies", url: "https://www.daveramsey.com/debt/get-out-of-debt", description: "Learn how to manage and reduce debt." },
+        { title: "Understanding Credit Scores", url: "https://www.myfico.com/credit-education/credit-scores", description: "Learn what affects your credit score." },
+    ],
+                // sports section
+                    "basketball": [
+        { title: "Basketball Training Drills", url: "https://www.breakthroughbasketball.com/drills.html", description: "Learn effective drills to improve your basketball skills." },
+        { title: "Basketball Equipment Guide", url: "https://www.sportsrec.com/basketball-gear.html", description: "Find essential gear for basketball players." },
+        { title: "Shooting Techniques", url: "https://www.stack.com/a/how-to-improve-your-basketball-shooting-technique", description: "Improve your shooting form and accuracy." },
+        { title: "Basketball Conditioning", url: "https://www.verywellfit.com/basketball-fitness-tips-3498428", description: "Get conditioning tips for basketball players." },
+        { title: "Basketball Competitions", url: "https://www.nba.com", description: "Stay updated on basketball games and tournaments." },
+    ],
+
+    "soccer": [
+        { title: "Soccer Drills for Skills", url: "https://www.soccercoachweekly.net/soccer-drills/skills-drills/", description: "Explore drills to enhance your soccer skills." },
+        { title: "Soccer Gear Essentials", url: "https://www.soccer.com", description: "Find soccer balls, cleats, and gear." },
+        { title: "Tactics and Strategies", url: "https://www.soccertrainingblog.com/soccer-tactics-and-strategies/", description: "Learn effective tactics for playing soccer." },
+        { title: "Fitness for Soccer Players", url: "https://www.verywellfit.com/soccer-fitness-training-3498431", description: "Get fitness tips tailored for soccer." },
+        { title: "Soccer Competitions", url: "https://www.fifa.com", description: "Stay updated on soccer tournaments and events." },
+    ],
+
+    "tennis": [
+        { title: "Tennis Training Tips", url: "https://www.tennis.com/training", description: "Improve your game with expert training tips." },
+        { title: "Tennis Equipment Guide", url: "https://www.tenniswarehouse.com", description: "Find the best tennis racquets, balls, and gear." },
+        { title: "Tennis Drills", url: "https://www.coachup.com/nation/articles/tennis-drills-to-improve-your-game", description: "Explore drills to enhance your tennis skills." },
+        { title: "Tennis Strategy", url: "https://www.essentialtennis.com/tennis-strategy/", description: "Learn effective strategies for winning matches." },
+        { title: "Tennis Fitness", url: "https://www.verywellfit.com/tennis-fitness-and-conditioning-3498474", description: "Get fitness tips tailored for tennis players." },
+    ],
+
+    "running": [
+        { title: "Running Training Plans", url: "https://www.runnersworld.com/uk/training-plans", description: "Find training plans for all levels of runners." },
+        { title: "Running Gear Essentials", url: "https://www.runrepeat.com/running-shoes", description: "Explore the best running shoes and gear." },
+        { title: "Running Techniques", url: "https://www.active.com/running/articles/10-tips-for-better-running-technique", description: "Improve your running form and efficiency." },
+        { title: "Nutrition for Runners", url: "https://www.runnersworld.com/nutrition-weight-loss/a20821114/the-best-foods-for-runners/", description: "Learn about nutrition to fuel your runs." },
+        { title: "Running Communities", url: "https://www.reddit.com/r/running/", description: "Join discussions with fellow runners on Reddit." },
+    ],
+
+    "swimming": [
+        { title: "Swimming Techniques", url: "https://www.swimmingworldmagazine.com", description: "Learn proper techniques for different strokes." },
+        { title: "Swimming Workouts", url: "https://www.swimoutlet.com/blogs/guides/8-swimming-workouts-to-improve-your-performance", description: "Explore workouts to enhance your swimming skills." },
+        { title: "Swimming Gear Guide", url: "https://www.swimoutlet.com", description: "Find the necessary swim gear and accessories." },
+        { title: "Open Water Swimming", url: "https://www.active.com/swimming/articles/open-water-swimming-tips", description: "Get tips for swimming in open water safely." },
+        { title: "Swimming Competitions", url: "https://www.usaswimming.org", description: "Stay updated on swimming competitions and events." },
+    ],
+
+    "cycling": [
+        { title: "Cycling Training Plans", url: "https://www.bicycling.com/training/a20003020/the-best-training-plans-for-cyclists/", description: "Find training plans tailored for cyclists." },
+        { title: "Bike Maintenance Tips", url: "https://www.bicycling.com/repair/a20030710/bike-maintenance-tips/", description: "Learn how to maintain your bike effectively." },
+        { title: "Cycling Gear Essentials", url: "https://www.rei.com/learn/expert-advice/bike-gear.html", description: "Explore essential gear for cycling." },
+        { title: "Cycling Nutrition", url: "https://www.verywellfit.com/nutrition-for-cyclists-5117987", description: "Get nutrition tips for optimal cycling performance." },
+        { title: "Cycling Events", url: "https://www.cyclingnews.com", description: "Stay updated on cycling events and competitions." },
+    ],
+                    "baseball": [
+        { title: "Baseball Drills for All Positions", url: "https://www.baseballtraining.com/baseball-drills/", description: "Learn drills for hitting, pitching, and fielding." },
+        { title: "Baseball Equipment Guide", url: "https://www.eastbay.com/category/sport/baseball.html", description: "Find bats, gloves, and other baseball gear." },
+        { title: "Hitting Techniques", url: "https://www.baseballtips.com", description: "Improve your batting with expert hitting tips." },
+        { title: "Pitching Mechanics", url: "https://www.youtube.com/watch?v=6D5vK8h7Nq8", description: "Learn proper pitching mechanics." },
+        { title: "Baseball Conditioning", url: "https://www.stack.com/a/how-to-get-in-shape-for-baseball-season", description: "Get fitness tips for baseball players." },
+    ],
+
+    "volleyball": [
+        { title: "Volleyball Drills for Skills", url: "https://www.volleywood.net/volleyball-drills/", description: "Explore drills to improve your volleyball skills." },
+        { title: "Volleyball Equipment Guide", url: "https://www.dickssportinggoods.com/c/volleyball-gear", description: "Find volleyballs, nets, and gear." },
+        { title: "Serving Techniques", url: "https://www.verywellfit.com/volleyball-serving-techniques-3498260", description: "Learn effective serving techniques." },
+        { title: "Fitness for Volleyball Players", url: "https://www.stack.com/a/volleyball-conditioning", description: "Get fitness tips tailored for volleyball." },
+        { title: "Volleyball Competitions", url: "https://www.fivb.com", description: "Stay updated on volleyball tournaments and events." },
+    ],
+
+    "football": [
+        { title: "Football Training Drills", url: "https://www.coachup.com/nation/articles/football-drills-to-improve-your-skills", description: "Explore drills to enhance your football skills." },
+        { title: "Football Equipment Guide", url: "https://www.football.com/gear/", description: "Find essential gear for football players." },
+        { title: "Tactics and Strategies", url: "https://www.football-tactics.com", description: "Learn effective strategies for playing football." },
+        { title: "Fitness for Football Players", url: "https://www.verywellfit.com/football-fitness-training-3498317", description: "Get fitness tips tailored for football." },
+        { title: "Football Competitions", url: "https://www.nfl.com", description: "Stay updated on football games and championships." },
+    ],
+
+    "hockey": [
+        { title: "Ice Hockey Basics", url: "https://www.hockeycanada.ca/en-ca", description: "Learn the fundamentals of ice hockey." },
+        { title: "Hockey Training Drills", url: "https://www.hockeytutorial.com/hockey-drills/", description: "Explore drills to improve your skating, shooting, and passing." },
+        { title: "Hockey Equipment Guide", url: "https://www.totalhockey.com/", description: "Find skates, sticks, pads, and other essential gear." },
+        { title: "Ice Hockey Strategy", url: "https://www.thehockeynews.com", description: "Learn effective strategies and tactics for playing ice hockey." },
+        { title: "Ice Hockey Conditioning", url: "https://www.verywellfit.com/hockey-fitness-training-3498410", description: "Get fitness tips tailored for hockey players." },
+    ],
+
+    "martial arts": [
+        { title: "Martial Arts Techniques", url: "https://www.blackbeltmag.com", description: "Explore techniques for various martial arts styles." },
+        { title: "Martial Arts Training Programs", url: "https://www.martialartsplanet.com", description: "Find training programs for different martial arts." },
+        { title: "Martial Arts Gear", url: "https://www.centuryfitness.com", description: "Shop for martial arts uniforms and equipment." },
+        { title: "Self-Defense Techniques", url: "https://www.wikihow.com/Defend-Yourself", description: "Learn basic self-defense techniques." },
+        { title: "Martial Arts Competitions", url: "https://www.usama.org", description: "Stay informed about martial arts competitions and events." },
+    ],
+
+    "track and field": [
+        { title: "Track and Field Training Tips", url: "https://www.runnersworld.com/uk/training/a760131/how-to-train-for-track-and-field-events/", description: "Get tips for training in various events." },
+        { title: "Track and Field Equipment Guide", url: "https://www.dickssportinggoods.com/c/track-and-field-gear", description: "Find essential gear for track and field." },
+        { title: "Running Technique", url: "https://www.verywellfit.com/running-technique-tips-3498326", description: "Learn proper running techniques." },
+        { title: "Field Event Techniques", url: "https://www.scienceofrunning.com/2016/05/field-events.html", description: "Explore techniques for field events." },
+        { title: "Track and Field Competitions", url: "https://www.iaaf.org", description: "Stay updated on track and field events worldwide." },
+    ],
+                    "track": [
+        { title: "Track and Field Training Tips", url: "https://www.runnersworld.com/uk/training/a760131/how-to-train-for-track-and-field-events/", description: "Get tips for training in various events." },
+        { title: "Track and Field Equipment Guide", url: "https://www.dickssportinggoods.com/c/track-and-field-gear", description: "Find essential gear for track and field." },
+        { title: "Running Technique", url: "https://www.verywellfit.com/running-technique-tips-3498326", description: "Learn proper running techniques." },
+        { title: "Field Event Techniques", url: "https://www.scienceofrunning.com/2016/05/field-events.html", description: "Explore techniques for field events." },
+        { title: "Track and Field Competitions", url: "https://www.iaaf.org", description: "Stay updated on track and field events worldwide." },
+    ],
+                    "field": [
+        { title: "Track and Field Training Tips", url: "https://www.runnersworld.com/uk/training/a760131/how-to-train-for-track-and-field-events/", description: "Get tips for training in various events." },
+        { title: "Track and Field Equipment Guide", url: "https://www.dickssportinggoods.com/c/track-and-field-gear", description: "Find essential gear for track and field." },
+        { title: "Running Technique", url: "https://www.verywellfit.com/running-technique-tips-3498326", description: "Learn proper running techniques." },
+        { title: "Field Event Techniques", url: "https://www.scienceofrunning.com/2016/05/field-events.html", description: "Explore techniques for field events." },
+        { title: "Track and Field Competitions", url: "https://www.iaaf.org", description: "Stay updated on track and field events worldwide." },
+    ],
+                    "golf": [
+        { title: "Golf Swing Tips", url: "https://www.golfdigest.com/story/golf-swing-tips", description: "Improve your golf swing with expert advice." },
+        { title: "Golf Equipment Guide", url: "https://www.golf.com/gear/", description: "Find the best golf clubs, balls, and accessories." },
+        { title: "Golf Drills", url: "https://www.golf.com/instruction/2020/04/15/golf-drills-practice/", description: "Explore drills to enhance your golf skills." },
+        { title: "Putting Techniques", url: "https://www.golfchannel.com/news/10-best-putting-tips-every-golfer-should-know", description: "Learn effective putting techniques." },
+        { title: "Golf Fitness", url: "https://www.verywellfit.com/the-best-fitness-tips-for-golfers-3498434", description: "Get fitness tips tailored for golfers." },
+    ],
+
+    "rugby": [
+        { title: "Rugby Training Drills", url: "https://www.rugbycoachweekly.net/rugby-drills/", description: "Explore drills to improve your rugby skills." },
+        { title: "Rugby Equipment Guide", url: "https://www.rugby.com.au/shop", description: "Find essential gear for rugby players." },
+        { title: "Tactics and Strategies", url: "https://www.rugbyworldcup.com", description: "Learn effective strategies for playing rugby." },
+        { title: "Fitness for Rugby Players", url: "https://www.verywellfit.com/rugby-fitness-training-3498318", description: "Get fitness tips tailored for rugby." },
+        { title: "Rugby Competitions", url: "https://www.world.rugby", description: "Stay updated on rugby tournaments and events." },
+    ],
+
+    "skateboarding": [
+        { title: "Skateboarding Basics", url: "https://www.skateboarding.com", description: "Learn the fundamentals of skateboarding." },
+        { title: "Skateboarding Tricks", url: "https://www.thrashermagazine.com/articles/how-to-skateboard-tricks/", description: "Learn various skateboarding tricks." },
+        { title: "Skateboarding Gear Guide", url: "https://www.evo.com/skateboarding-gear", description: "Find essential gear for skateboarding." },
+        { title: "Skateboarding Safety Tips", url: "https://www.verywellfit.com/skateboarding-safety-tips-3498353", description: "Stay safe while skateboarding." },
+        { title: "Skateboarding Competitions", url: "https://www.xgames.com", description: "Follow skateboarding competitions and events." },
+    ],
+
+    "snowboarding": [
+        { title: "Snowboarding Basics", url: "https://www.snowboarder.com/snowboard-tips-for-beginners/", description: "Learn the basics of snowboarding." },
+        { title: "Snowboarding Gear Guide", url: "https://www.evo.com/snowboard-gear", description: "Find essential snowboarding equipment." },
+        { title: "Snowboarding Tricks", url: "https://www.transworldsnowboarding.com/story/learn-snowboarding-tricks/", description: "Explore tricks for various skill levels." },
+        { title: "Snowboarding Fitness", url: "https://www.verywellfit.com/snowboarding-fitness-training-3498342", description: "Prepare your body for snowboarding with fitness tips." },
+        { title: "Snowboarding Events", url: "https://www.worldsnowboardtour.com", description: "Stay updated on snowboarding competitions and events." },
+    ],
+
+    "gymnastics": [
+        { title: "Gymnastics Skills", url: "https://www.gymnasticsworld.com", description: "Learn about various gymnastics skills and techniques." },
+        { title: "Gymnastics Equipment Guide", url: "https://www.gymnasticssuperstore.com", description: "Find gymnastics mats, beams, and equipment." },
+        { title: "Training for Gymnasts", url: "https://www.verywellfit.com/gymnastics-training-tips-3498320", description: "Get training tips for aspiring gymnasts." },
+        { title: "Nutrition for Gymnasts", url: "https://www.nutrition.org.uk/healthyliving/healthyliving/gymnastics-nutrition.html", description: "Learn about nutrition to fuel gymnastics performance." },
+        { title: "Gymnastics Competitions", url: "https://www.usagym.org", description: "Follow gymnastics competitions and events." },
+    ],
+
+    "figure skating": [
+        { title: "Figure Skating Basics", url: "https://www.ice-skating.com/figure-skating-beginners/", description: "Learn the basics of figure skating." },
+        { title: "Figure Skating Equipment", url: "https://www.dickssportinggoods.com/c/figure-skating-gear", description: "Find skates, costumes, and gear for figure skating." },
+        { title: "Figure Skating Techniques", url: "https://www.ice-skating.com/figure-skating-tips/", description: "Improve your techniques with expert tips." },
+        { title: "Fitness for Figure Skating", url: "https://www.verywellfit.com/figure-skating-fitness-training-3498352", description: "Get fitness tips tailored for figure skaters." },
+        { title: "Figure Skating Competitions", url: "https://www.isu.org", description: "Stay updated on figure skating competitions and events." },
+    ],
+                    "cricket": [
+        { title: "Cricket Training Drills", url: "https://www.cricketworld.com/cricket-drills/", description: "Explore drills to improve your cricket skills." },
+        { title: "Cricket Equipment Guide", url: "https://www.thecricketer.com", description: "Find essential gear for cricket players." },
+        { title: "Batting Techniques", url: "https://www.espncricinfo.com", description: "Learn effective batting techniques." },
+        { title: "Bowling Techniques", url: "https://www.crickettips.com/bowling-tips.html", description: "Improve your bowling skills with expert advice." },
+        { title: "Cricket Competitions", url: "https://www.icc-cricket.com", description: "Stay updated on international cricket tournaments." },
+    ],
+
+    "table tennis": [
+        { title: "Table Tennis Basics", url: "https://www.usatt.org", description: "Learn the fundamentals of table tennis." },
+        { title: "Table Tennis Drills", url: "https://www.tabletenniscoach.com", description: "Explore drills to enhance your table tennis skills." },
+        { title: "Equipment Guide", url: "https://www.tabletennismaster.com", description: "Find essential gear for table tennis." },
+        { title: "Techniques and Strategies", url: "https://www.paddlepalace.com", description: "Learn effective techniques and strategies for play." },
+        { title: "Table Tennis Competitions", url: "https://www.ittf.com", description: "Stay updated on table tennis competitions and events." },
+    ],
+
+    "badminton": [
+        { title: "Badminton Skills", url: "https://www.badmintonbay.com", description: "Learn essential skills and techniques for badminton." },
+        { title: "Badminton Equipment Guide", url: "https://www.dickssportinggoods.com/c/badminton-gear", description: "Find rackets, shuttlecocks, and gear." },
+        { title: "Badminton Drills", url: "https://www.badmintonbible.com/badminton-drills/", description: "Explore drills to enhance your badminton skills." },
+        { title: "Fitness for Badminton", url: "https://www.verywellfit.com/badminton-fitness-tips-3498401", description: "Get fitness tips tailored for badminton players." },
+        { title: "Badminton Competitions", url: "https://www.bwfbadminton.com", description: "Stay updated on badminton tournaments and events." },
+    ],
+
+    "eSports": [
+        { title: "eSports Training Tips", url: "https://www.esportsinsider.com", description: "Get tips for improving your eSports skills." },
+        { title: "Gaming Gear Guide", url: "https://www.redbull.com/us-en/gear-guide-gaming", description: "Find essential gear for eSports and gaming." },
+        { title: "eSports Competitions", url: "https://www.lolesports.com", description: "Stay updated on competitive eSports tournaments." },
+        { title: "eSports Strategies", url: "https://esports.com", description: "Explore strategies for different eSports games." },
+        { title: "Streaming Tips", url: "https://www.twitch.tv", description: "Learn how to effectively stream your gameplay." },
+    ],
+
+    "fencing": [
+        { title: "Fencing Techniques", url: "https://www.usfencing.org", description: "Learn the fundamentals of fencing techniques." },
+        { title: "Fencing Gear Guide", url: "https://www.fencing.net/shop/gear/", description: "Find masks, swords, and protective gear." },
+        { title: "Fencing Training Tips", url: "https://www.swordfighting.net/fencing-training-tips", description: "Get training tips for aspiring fencers." },
+        { title: "Competitive Fencing", url: "https://www.fencingworldwide.com", description: "Stay updated on fencing competitions and events." },
+        { title: "Fencing Fitness", url: "https://www.verywellfit.com/fitness-tips-for-fencers-3498390", description: "Prepare your body for fencing with fitness tips." },
+    ],
+
+    "curling": [
+        { title: "Curling Basics", url: "https://www.teamusa.org/USA-Curling", description: "Learn the fundamentals of curling." },
+        { title: "Curling Techniques", url: "https://www.curling.ca", description: "Explore techniques to improve your curling skills." },
+        { title: "Curling Equipment Guide", url: "https://www.amazon.com/s?k=curling+equipment", description: "Find essential gear for curling." },
+        { title: "Curling Strategy", url: "https://www.curlingzone.com", description: "Learn effective strategies for playing curling." },
+        { title: "Curling Competitions", url: "https://www.worldcurling.org", description: "Stay updated on curling championships and events." },
+    ],
+    "water polo": [
+        { title: "Water Polo Basics", url: "https://www.waterpoloplanet.com", description: "Learn the fundamentals of water polo." },
+        { title: "Water Polo Drills", url: "https://www.waterpoloplanet.com/water-polo-drills.html", description: "Explore drills to improve your water polo skills." },
+        { title: "Water Polo Strategy", url: "https://www.usawaterpolo.org", description: "Learn effective strategies for playing water polo." },
+        { title: "Water Polo Gear Guide", url: "https://www.swimoutlet.com", description: "Find essential gear for water polo players." },
+        { title: "Water Polo Competitions", url: "https://www.fina.org", description: "Stay updated on water polo tournaments and events." },
+    ],
+
+    "ultimate frisbee": [
+        { title: "Ultimate Frisbee Basics", url: "https://www.usaultimate.org", description: "Learn the fundamentals of ultimate frisbee." },
+        { title: "Ultimate Frisbee Drills", url: "https://www.ultimatefrisbeecoach.com", description: "Explore drills to enhance your ultimate frisbee skills." },
+        { title: "Ultimate Frisbee Strategies", url: "https://www.ultimatestrategy.com", description: "Learn effective strategies for playing ultimate frisbee." },
+        { title: "Ultimate Frisbee Gear Guide", url: "https://www.amazon.com/s?k=ultimate+frisbee+gear", description: "Find essential gear for ultimate frisbee." },
+        { title: "Ultimate Frisbee Competitions", url: "https://www.ultiworld.com", description: "Stay updated on ultimate frisbee tournaments and events." },
+    ],
+
+    "lacrosse": [
+        { title: "Lacrosse Basics", url: "https://www.uslacrosse.org", description: "Learn the fundamentals of lacrosse." },
+        { title: "Lacrosse Training Drills", url: "https://www.lacrosseplaybook.com", description: "Explore drills to improve your lacrosse skills." },
+        { title: "Lacrosse Equipment Guide", url: "https://www.lacrossemonkey.com", description: "Find essential gear for lacrosse players." },
+        { title: "Lacrosse Strategies", url: "https://www.lax.com", description: "Learn effective strategies for playing lacrosse." },
+        { title: "Lacrosse Competitions", url: "https://www.nll.com", description: "Stay updated on lacrosse tournaments and events." },
+    ],
+
+    "crossfit": [
+        { title: "CrossFit Training Essentials", url: "https://www.crossfit.com", description: "Learn the fundamentals of CrossFit training." },
+        { title: "CrossFit Workouts", url: "https://www.wodnation.com", description: "Explore various CrossFit workout routines." },
+        { title: "CrossFit Nutrition", url: "https://www.eatright.com", description: "Get nutrition tips tailored for CrossFit athletes." },
+        { title: "CrossFit Competitions", url: "https://games.crossfit.com", description: "Stay updated on CrossFit competitions and events." },
+        { title: "CrossFit Gear Guide", url: "https://www.roguefitness.com", description: "Find essential gear for CrossFit workouts." },
+    ],
+
+    "rock climbing": [
+        { title: "Rock Climbing Basics", url: "https://www.climbing.com/skills/rock-climbing-skills/", description: "Learn essential techniques for rock climbing." },
+        { title: "Climbing Gear Essentials", url: "https://www.rei.com/c/rock-climbing-gear", description: "Find climbing shoes, harnesses, and gear." },
+        { title: "Indoor Climbing Tips", url: "https://www.rockclimbing.com/articles/indoor-climbing-tips", description: "Get tips for indoor climbing." },
+        { title: "Climbing Fitness", url: "https://www.verywellfit.com/rock-climbing-fitness-training-3498381", description: "Prepare your body for climbing with fitness tips." },
+        { title: "Climbing Competitions", url: "https://www.climbing.com/competitions/", description: "Follow rock climbing competitions and events." },
+    ],
+
+    "sailing": [
+        { title: "Sailing Basics", url: "https://www.sailingworld.com", description: "Learn the fundamentals of sailing." },
+        { title: "Sailing Techniques", url: "https://www.sailmagazine.com", description: "Explore techniques to improve your sailing skills." },
+        { title: "Sailing Gear Guide", url: "https://www.westmarine.com", description: "Find essential gear for sailing." },
+        { title: "Sailing Safety Tips", url: "https://www.usps.org", description: "Stay safe while sailing with these essential tips." },
+        { title: "Sailing Competitions", url: "https://www.sailing.org", description: "Stay updated on sailing competitions and events." },
+    ],
+                    "field hockey": [
+        { title: "Field Hockey Basics", url: "https://www.usafieldhockey.com", description: "Learn the fundamentals of field hockey." },
+        { title: "Field Hockey Drills", url: "https://www.fieldhockey.com", description: "Explore drills to improve your field hockey skills." },
+        { title: "Field Hockey Equipment Guide", url: "https://www.hockeymonkey.com", description: "Find essential gear for field hockey." },
+        { title: "Field Hockey Strategies", url: "https://www.coachup.com/nation/articles/field-hockey-strategies", description: "Learn effective strategies for playing field hockey." },
+        { title: "Field Hockey Competitions", url: "https://www.fih.ch", description: "Stay updated on field hockey tournaments and events." },
+    ],
+
+    "cross country": [
+        { title: "Cross Country Basics", url: "https://www.runnersworld.com/cross-country", description: "Learn the fundamentals of cross country running." },
+        { title: "Cross Country Training Plans", url: "https://www.coachjason.com", description: "Explore training plans for cross country runners." },
+        { title: "Cross Country Gear Guide", url: "https://www.runningwarehouse.com", description: "Find essential gear for cross country running." },
+        { title: "Cross Country Competitions", url: "https://www.ncrunners.com", description: "Stay updated on cross country events and competitions." },
+        { title: "Nutrition for Cross Country", url: "https://www.verywellfit.com/cross-country-nutrition-3498349", description: "Get nutrition tips for cross country runners." },
+    ],
+
+    "motorsports": [
+        { title: "Motorsports Overview", url: "https://www.motorsport.com", description: "Learn about various motorsport disciplines." },
+        { title: "Racing Techniques", url: "https://www.speedcafe.com", description: "Explore techniques to improve your racing skills." },
+        { title: "Motorsports Equipment Guide", url: "https://www.jegs.com", description: "Find essential gear for motorsports." },
+        { title: "Motorsports Competitions", url: "https://www.formula1.com", description: "Stay updated on motorsport events and competitions." },
+        { title: "Motorsports Safety Tips", url: "https://www.scca.com", description: "Learn about safety in motorsports." },
+    ],
+
+    "billiards": [
+        { title: "Billiards Basics", url: "https://www.billiardsdigest.com", description: "Learn the fundamentals of billiards." },
+        { title: "Billiards Techniques", url: "https://www.pooldawg.com", description: "Explore techniques to improve your billiards game." },
+        { title: "Billiards Equipment Guide", url: "https://www.billiardswarehouse.com", description: "Find essential gear for billiards." },
+        { title: "Billiards Competitions", url: "https://www.worldpoolbilliard.com", description: "Stay updated on billiards tournaments and events." },
+        { title: "Billiards Strategy", url: "https://www.poolandbilliard.com", description: "Learn strategies for playing billiards." },
+    ],
+
+    "archery": [
+        { title: "Archery Basics", url: "https://www.archery.org", description: "Learn the fundamentals of archery." },
+        { title: "Archery Techniques", url: "https://www.archery360.com", description: "Explore techniques to improve your archery skills." },
+        { title: "Archery Equipment Guide", url: "https://www.3riversarchery.com", description: "Find essential gear for archery." },
+        { title: "Archery Competitions", url: "https://www.worldarchery.org", description: "Stay updated on archery tournaments and events." },
+        { title: "Archery Safety Tips", url: "https://www.archery.com", description: "Learn about safety practices in archery." },
+    ],
+
+    "darts": [
+        { title: "Darts Basics", url: "https://www.dartshq.com", description: "Learn the fundamentals of darts." },
+        { title: "Darts Techniques", url: "https://www.dartsmagazine.com", description: "Explore techniques to improve your darts game." },
+        { title: "Darts Equipment Guide", url: "https://www.dartshop.com", description: "Find essential gear for darts." },
+        { title: "Darts Competitions", url: "https://www.pdc.tv", description: "Stay updated on darts tournaments and events." },
+        { title: "Darts Strategy", url: "https://www.darts501.com", description: "Learn strategies for playing darts." },
+    ],
+    "squash": [
+        { title: "Squash Basics", url: "https://www.worldsquash.org", description: "Learn the fundamentals of squash." },
+        { title: "Squash Techniques", url: "https://www.squashcoach.com", description: "Explore techniques to improve your squash game." },
+        { title: "Squash Equipment Guide", url: "https://www.squashstore.com", description: "Find essential gear for squash." },
+        { title: "Squash Competitions", url: "https://www.squashsite.com", description: "Stay updated on squash tournaments and events." },
+        { title: "Squash Fitness Tips", url: "https://www.verywellfit.com/squash-fitness-training-3498395", description: "Get fitness tips tailored for squash players." },
+    ],
+
+    "futsal": [
+        { title: "Futsal Basics", url: "https://www.futsal.com", description: "Learn the fundamentals of futsal." },
+        { title: "Futsal Training Drills", url: "https://www.futsaltraining.com", description: "Explore drills to improve your futsal skills." },
+        { title: "Futsal Equipment Guide", url: "https://www.soccer.com", description: "Find essential gear for futsal." },
+        { title: "Futsal Strategies", url: "https://www.futsal.org", description: "Learn effective strategies for playing futsal." },
+        { title: "Futsal Competitions", url: "https://www.fifa.com/futsal", description: "Stay updated on futsal tournaments and events." },
+    ],
+
+    "pickleball": [
+        { title: "Pickleball Basics", url: "https://www.usapa.org", description: "Learn the fundamentals of pickleball." },
+        { title: "Pickleball Techniques", url: "https://www.pickleballcentral.com", description: "Explore techniques to improve your pickleball game." },
+        { title: "Pickleball Equipment Guide", url: "https://www.paddleball.com", description: "Find essential gear for pickleball." },
+        { title: "Pickleball Competitions", url: "https://www.pickleballtournaments.com", description: "Stay updated on pickleball tournaments and events." },
+        { title: "Pickleball Strategies", url: "https://www.pickleballkitchen.com", description: "Learn strategies for playing pickleball." },
+    ],
+
+    "surfing": [
+        { title: "Surfing Basics", url: "https://www.surfline.com", description: "Learn the fundamentals of surfing." },
+        { title: "Surfing Techniques", url: "https://www.surfer.com", description: "Explore techniques to improve your surfing skills." },
+        { title: "Surfing Gear Guide", url: "https://www.wetsuitwarehouse.com", description: "Find essential gear for surfing." },
+        { title: "Surfing Competitions", url: "https://www.worldsurfleague.com", description: "Stay updated on surfing competitions and events." },
+        { title: "Surfing Safety Tips", url: "https://www.surfersvillage.com", description: "Learn about safety practices while surfing." },
+    ],
+
+    "gymnastics": [
+        { title: "Gymnastics Basics", url: "https://www.usagym.org", description: "Learn the fundamentals of gymnastics." },
+        { title: "Gymnastics Techniques", url: "https://www. gymnasticsworld.com", description: "Explore techniques to improve your gymnastics skills." },
+        { title: "Gymnastics Equipment Guide", url: "https://www.gymnasticssuperstore.com", description: "Find essential gear for gymnastics." },
+        { title: "Gymnastics Competitions", url: "https://www.fig-gymnastics.com", description: "Stay updated on gymnastics tournaments and events." },
+        { title: "Gymnastics Fitness Tips", url: "https://www.verywellfit.com/gymnastics-fitness-training-3498320", description: "Get fitness tips tailored for gymnasts." },
+    ],
+
+    "cheerleading": [
+        { title: "Cheerleading Basics", url: "https://www.cheerleading.com", description: "Learn the fundamentals of cheerleading." },
+        { title: "Cheerleading Techniques", url: "https://www.cheerleadingworld.com", description: "Explore techniques to improve your cheerleading skills." },
+        { title: "Cheerleading Equipment Guide", url: "https://www.cheerleading.com", description: "Find essential gear for cheerleading." },
+        { title: "Cheerleading Competitions", url: "https://www.varsity.com", description: "Stay updated on cheerleading competitions and events." },
+        { title: "Cheerleading Safety Tips", url: "https://www.cheersafe.org", description: "Learn about safety practices in cheerleading." },
+    ],
+                    "diy crafts": [
+        { title: "DIY Craft Projects", url: "https://www.craftgawker.com", description: "Discover a variety of fun and creative DIY craft projects." },
+        { title: "Knitting Patterns", url: "https://www.ravelry.com", description: "Find knitting patterns and connect with fellow knitters." },
+        { title: "Scrapbooking Ideas", url: "https://www.scrapbook.com", description: "Get inspiration and supplies for your next scrapbook." },
+        { title: "Upcycling Projects", url: "https://www.upcyclethat.com", description: "Learn how to turn old items into new treasures." },
+        { title: "Crafting Tutorials", url: "https://www.youtube.com/results?search_query=crafting+tutorials", description: "Watch videos for crafting techniques and tutorials." },
+    ],
+
+    "home brewing": [
+        { title: "Home Brewing Basics", url: "https://www.homebrewersassociation.org", description: "Learn the fundamentals of home brewing." },
+        { title: "Home Brewing Recipes", url: "https://www.brewersfriend.com/beer-recipes", description: "Explore a variety of home brewing recipes." },
+        { title: "Brewing Equipment Guide", url: "https://www.northernbrewer.com", description: "Find essential equipment for home brewing." },
+        { title: "Home Brewing Tips", url: "https://www.craftbeer.com", description: "Get tips for successful home brewing." },
+        { title: "Home Brewing Competitions", url: "https://www.homebrewingcomp.com", description: "Stay updated on home brewing competitions." },
+    ],
+
+    "urban gardening": [
+        { title: "Urban Gardening Tips", url: "https://www.urbangardensweb.com", description: "Learn how to garden in small urban spaces." },
+        { title: "Container Gardening", url: "https://www.gardeners.com/how-to/container-gardening", description: "Explore tips for container gardening." },
+        { title: "Vertical Gardening", url: "https://www.verticalgardeningideas.com", description: "Discover vertical gardening techniques." },
+        { title: "Herb Gardening in Urban Areas", url: "https://www.urbanherbalist.com", description: "Learn how to grow herbs in urban settings." },
+        { title: "Urban Gardening Competitions", url: "https://www.cityfarmer.info", description: "Stay updated on urban gardening events." },
+    ],
+
+    "self-defense": [
+        { title: "Self-Defense Basics", url: "https://www.wikihow.com/Defend-Yourself", description: "Learn basic self-defense techniques." },
+        { title: "Self-Defense Classes", url: "https://www.911selfdefense.com", description: "Find self-defense classes near you." },
+        { title: "Self-Defense Gear Guide", url: "https://www.selfdefensegears.com", description: "Explore essential gear for self-defense." },
+        { title: "Self-Defense Techniques", url: "https://www.youtube.com/results?search_query=self-defense+techniques", description: "Watch videos for self-defense techniques." },
+        { title: "Self-Defense Resources", url: "https://www.verywellfit.com/self-defense-5073093", description: "Access resources for self-defense training." },
+    ],
+
+    "mystery novels": [
+        { title: "Best Mystery Novels", url: "https://www.goodreads.com/shelf/show/mystery", description: "Discover popular mystery novels." },
+        { title: "Mystery Novel Recommendations", url: "https://www.bookriot.com/mystery-novels", description: "Get recommendations for mystery novels." },
+        { title: "Mystery Authors", url: "https://www.mysterywriters.org", description: "Learn about notable mystery authors." },
+        { title: "Mystery Novel Events", url: "https://www.mysterybookclub.com", description: "Stay updated on mystery novel events and clubs." },
+        { title: "Writing Mystery Novels", url: "https://www.writingclasses.com", description: "Get tips for writing your own mystery novels." },
+    ],
+
+    "travel photography": [
+        { title: "Travel Photography Tips", url: "https://www.nationalgeographic.com/photography/photo-tips/travel-photography-tips", description: "Learn tips for taking stunning travel photos." },
+        { title: "Best Travel Cameras", url: "https://www.digitalphotopro.com", description: "Find the best cameras for travel photography." },
+        { title: "Editing Travel Photos", url: "https://www.adobe.com/creativecloud/photography.html", description: "Get tips for editing your travel photos." },
+        { title: "Travel Photography Gear Guide", url: "https://www.adorama.com", description: "Explore essential gear for travel photography." },
+        { title: "Travel Photography Competitions", url: "https://www.photocontestinsider.com", description: "Stay updated on travel photography competitions." },
+    ],
+                    "sustainable fashion": [
+        { title: "Sustainable Fashion Tips", url: "https://www.goodonyou.eco", description: "Learn how to shop sustainably." },
+        { title: "Eco-Friendly Fashion Brands", url: "https://www.ecowatch.com/eco-friendly-clothing-brands-2645928971.html", description: "Explore eco-friendly clothing brands." },
+        { title: "Fashion Recycling", url: "https://www.thredUP.com", description: "Find out how to recycle and upcycle your clothes." },
+        { title: "Sustainable Fashion Events", url: "https://www.fashionrevolution.org", description: "Stay updated on sustainable fashion events." },
+        { title: "Sustainable Fabrics Guide", url: "https://www.sustainability.com", description: "Learn about sustainable fabrics and materials." },
+    ],
+
+    "creative writing": [
+        { title: "Creative Writing Prompts", url: "https://www.writersdigest.com/prompts", description: "Explore prompts to inspire your writing." },
+        { title: "Writing Workshops", url: "https://www.coursera.org", description: "Find online writing workshops and courses." },
+        { title: "Creative Writing Resources", url: "https://www.novel-writing-help.com", description: "Access resources for improving your writing." },
+        { title: "Publishing Tips", url: "https://www.selfpublishing.com", description: "Get tips for publishing your creative work." },
+        { title: "Creative Writing Competitions", url: "https://www.writersdigest.com/wd-competitions", description: "Stay updated on writing competitions." },
+    ],
+
+    "mindfulness": [
+        { title: "Mindfulness Practices", url: "https://www.mindful.org", description: "Explore mindfulness techniques and exercises." },
+        { title: "Meditation Resources", url: "https://www.headspace.com", description: "Access guided meditations for mindfulness." },
+        { title: "Mindfulness Workshops", url: "https://www.mindfulness-training.com", description: "Find mindfulness workshops near you." },
+        { title: "Books on Mindfulness", url: "https://www.goodreads.com/shelf/show/mindfulness", description: "Discover books on mindfulness and meditation." },
+        { title: "Mindfulness Apps", url: "https://www.healthline.com/health/mindfulness-apps", description: "Learn about apps that help practice mindfulness." },
+    ],
+
+    "digital nomad": [
+        { title: "Digital Nomad Lifestyle", url: "https://www.nomadicmatt.com", description: "Explore the digital nomad lifestyle and tips." },
+        { title: "Remote Work Jobs", url: "https://www.flexjobs.com", description: "Find remote work opportunities." },
+        { title: "Digital Nomad Communities", url: "https://www.facebook.com/groups/digitalnomadcommunity", description: "Join communities for digital nomads." },
+        { title: "Travel Tips for Digital Nomads", url: "https://www.forbes.com/sites/forbesbusinesscouncil/2021/03/12/10-tips-for-becoming-a-successful-digital-nomad/", description: "Get travel tips for digital nomads." },
+        { title: "Best Cities for Digital Nomads", url: "https://www.wanderlustworker.com", description: "Discover the best cities for digital nomads." },
+    ],
+
+    "pet training": [
+        { title: "Dog Training Basics", url: "https://www.akc.org/expert-advice/training/", description: "Learn effective training techniques for your dog." },
+        { title: "Cat Training Tips", url: "https://www.catbehaviorassociates.com", description: "Find tips for training your cat." },
+        { title: "Pet Training Classes", url: "https://www.rover.com/blog/pet-training-classes/", description: "Locate pet training classes near you." },
+        { title: "Positive Reinforcement Training", url: "https://www.positively.com", description: "Explore positive reinforcement training methods." },
+        { title: "Pet Training Resources", url: "https://www.petmd.com", description: "Access resources for pet training." },
+    ],
+
+    "home automation": [
+        { title: "Smart Home Devices", url: "https://www.cnet.com/smart-home/", description: "Explore the latest in smart home technology." },
+        { title: "Home Automation Guides", url: "https://www.tomsguide.com/us/home-automation,news-2281.html", description: "Learn how to set up and optimize your smart home." },
+        { title: "Smart Home Security", url: "https://www.security.org/home-security/smart-home-security/", description: "Discover smart security solutions for your home." },
+        { title: "Voice Assistants", url: "https://www.digitaltrends.com/home/what-is-a-smart-home/", description: "Find the best voice assistants for home automation." },
+        { title: "Home Automation Communities", url: "https://www.reddit.com/r/homeautomation", description: "Join discussions about home automation on Reddit." },
+    ],
         };
