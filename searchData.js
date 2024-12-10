@@ -1,6 +1,6 @@
         const searchResponses = {
     "owners projects": [
-        { title: "Sigma games", url: "https://sigmagames69.github.io", description: "Welcome to The Unblocked cat, an ad-free unblocked games website." },
+        { title: "Sigma games", url: "https://sigmagames69.github.io", description: "Welcome to Sigma games, an ad-free unblocked games website." },
         { title: "Search browser", url: "https://cybertoilet.github.io", description: "Welcome to The Unblocked cat's internet search browser, a free and ad-free search browser. (you are using it right now.)" },
         { title: "Meme soundboard", url: "https://joercat.github.io/meme", description: "Are you bored? Do you want to annoy the people around you? Well if so, then come check out our new meme soundboard" },
     ],
@@ -1769,5 +1769,71 @@
     { title: "Urban Legend Origins", url: "https://www.history.com", description: "Explore the origins of well-known urban legends." },
 ],
 
-};
+"google": [
+    { title: "Google", url: "https://www.google.com", description: "Google's internet web browser" },
+    { title: "Gmail", url: "https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox", description: "Email service by Google." },
+    { title: "Google Docs", url: "https://docs.google.com/document/u/0/?showDriveBanner=true&tgif=d", description: "Online word processing tool." },
+    { title: "Google Sites", url: "https://sites.google.com/?tgif=d.com", description: "Tool for creating online websites." },
+    { title: "Google Slides", url: "https://docs.google.com/presentation/u/0/?tgif=d", description: "Online presentation tool." },
+    { title: "Google Forms", url: "https://docs.google.com/forms/u/0/?tgif=d", description: "Tool for creating surveys and forms." },
+    { title: "Google Spreadsheets", url: "https://docs.google.com/spreadsheets/u/0/?pli=1&tgif=d", description: "Online spreadsheet tool." },
+    { title: "Google Draw", url: "https://drawing.google.com", description: "Tool for creating drawings and diagrams." },
+    { title: "Google Jamboard", url: "https://jamboard.google.com/", description: "Online collaborative whiteboard tool." },
+    { title: "Google Drive", url: "https://drive.google.com/", description: "Cloud storage service for storing files." },
+    { title: "Google Translate", url: "https://translate.google.com/", description: "Language translation service." },
+],
 
+ "GitHub": [
+    { title: "GitHub", url: "https://github.com", description: "Web-based version control and collaboration platform for software development." },
+    { title: "GitHub Issues", url: "https://github.com/issues", description: "Tool for tracking bugs and feature requests." },
+    { title: "GitHub Actions", url: "https://github.com/features/actions", description: "Automate workflows directly in your GitHub repository." },
+    { title: "GitHub Pages", url: "https://pages.github.com/", description: "Host static websites directly from a GitHub repository." },
+    { title: "GitHub Gists", url: "https://gist.github.com/", description: "Share snippets of code or text." },
+    { title: "GitHub Marketplace", url: "https://github.com/marketplace", description: "Discover and purchase tools and services for your GitHub workflow." },
+],
+
+"Microsoft": [
+    { title: "Microsoft 365", url: "https://www.microsoft.com/en-us/microsoft-365", description: "Subscription service for Office applications and cloud services." },
+    { title: "OneDrive", url: "https://onedrive.live.com/", description: "Cloud storage service that allows you to store files and access them from any device." },
+    { title: "Microsoft Teams", url: "https://teams.microsoft.com/", description: "Collaboration platform that integrates chat, video meetings, and file storage." },
+    { title: "Microsoft Word", url: "https://www.microsoft.com/en-us/microsoft-365/word", description: "Word processing application." },
+    { title: "Microsoft Excel", url: "https://www.microsoft.com/en-us/microsoft-365/excel", description: "Spreadsheet application." },
+    { title: "Microsoft PowerPoint", url: "https://www.microsoft.com/en-us/microsoft-365/powerpoint", description: "Presentation software." },
+],
+
+"Amazon": [
+    { title: "Amazon", url: "https://www.amazon.com", description: "E-commerce platform for a wide range of products." },
+    { title: "Amazon Prime", url: "https://www.amazon.com/amazonprime", description: "Subscription service offering free shipping and streaming." },
+    { title: "Amazon Web Services (AWS)", url: "https://aws.amazon.com/", description: "Cloud computing services platform." },
+    { title: "Amazon Kindle", url: "https://www.amazon.com/kindle-dbs/hz/signup", description: "E-reader and platform for eBooks." },
+    { title: "Amazon Music", url: "https://music.amazon.com/", description: "Music streaming service." },
+    { title: "Amazon Alexa", url: "https://www.amazon.com/alexa", description: "Voice assistant service." },
+],
+
+"Facebook": [
+    { title: "Facebook", url: "https://www.facebook.com", description: "Social media platform for connecting with friends and sharing content." },
+    { title: "Facebook Messenger", url: "https://www.messenger.com", description: "Messaging app for Facebook users." },
+    { title: "Facebook Business", url: "https://business.facebook.com/", description: "Tools and resources for businesses on Facebook." },
+    { title: "Facebook Ads", url: "https://www.facebook.com/business/ads", description: "Advertising platform for targeting users on Facebook." },
+    { title: "Facebook Events", url: "https://www.facebook.com/events/", description: "Tool for creating and managing events." },
+    { title: "Facebook Pages", url: "https://www.facebook.com/pages", description: "Create and manage public profiles for businesses or organizations." },
+],
+
+"LinkedIn": [
+    { title: "LinkedIn", url: "https://www.linkedin.com", description: "Professional networking platform." },
+    { title: "LinkedIn Learning", url: "https://www.linkedin.com/learning/", description: "Online learning platform with courses for professionals." },
+    { title: "LinkedIn Jobs", url: "https://www.linkedin.com/jobs/", description: "Job search platform connecting employers and job seekers." },
+    { title: "LinkedIn Sales Navigator", url: "https://www.linkedin.com/sales/solutions/sales-navigator", description: "Sales tool for finding and building relationships with prospects." },
+    { title: "LinkedIn Marketing Solutions", url: "https://business.linkedin.com/marketing-solutions", description: "Advertising platform for businesses." },
+    { title: "LinkedIn Events", url: "https://www.linkedin.com/events/", description: "Feature for creating and promoting professional events." },
+],
+
+"Slack": [
+    { title: "Slack", url: "https://slack.com", description: "Team collaboration and communication platform." },
+    { title: "Slack App Directory", url: "https://slack.com/apps", description: "Browse integrations and apps to enhance Slack." },
+    { title: "Slack API", url: "https://api.slack.com/", description: "Build custom integrations with Slack." },
+    { title: "Slack Connect", url: "https://slack.com/connect", description: "Collaborate with external organizations in shared channels." },
+    { title: "Slack Calls", url: "https://slack.com/calls", description: "Voice and video calling features within Slack." },
+    { title: "Slack Help Center", url: "https://slack.com/help", description: "Resources and support for using Slack." },
+],
+};
