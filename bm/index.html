@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BITE ME - AJ DiSpirito ft. Zephyrianna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #282c34;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #61dafb;
+        }
+        .lyrics {
+            margin-top: 20px;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .lyric-line {
+            opacity: 0.5;
+            transition: opacity 0.5s ease;
+        }
+        .active {
+            opacity: 1;
+        }
+        footer {
+            margin-top: 40px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>BITE ME - AJ DiSpirito ft. Zephyrianna</h1>
+    
+    <audio id="audio" controls>
+        <source src="bite me.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="lyrics">
+        <p class="lyric-line" data-time="0">Bite me, bite me, bite me, bite me</p>
+        <p class="lyric-line" data-time="2">Bite me, bite me, bite me, bite me</p>
+        <p class="lyric-line" data-time="4">Bite me, bite me, bite me, bite me</p>
+        <p class="lyric-line" data-time="6">As she waits at dawn</p>
+        <p class="lyric-line" data-time="8">Looking for a way to escape her lonely heart</p>
+        <p class="lyric-line" data-time="10">(Let them swallow you)</p>
+        <p class="lyric-line" data-time="12">I won't fall down, you need me</p>
+        <p class="lyric-line" data-time="14">We don't follow crowds, we mold them new</p>
+        <p class="lyric-line" data-time="16">I'm not done, believe me</p>
+        <p class="lyric-line" data-time="18">We won't settle down, we'll make them move</p>
+        <p class="lyric-line" data-time="20">Make them mine</p>
+        <p class="lyric-line" data-time="22">I won't let them, I repent them, I won't let them (swallow you)</p>
+        <p class="lyric-line" data-time="24">I won't let them (I won't let them, I won't let them, I won't let them, I won't let them)</p>
+        <p class="lyric-line" data-time="26">Swallow you</p>
+        <p class="lyric-line" data-time="28">As it stands, you are no longer my friend</p>
+        <p class="lyric-line" data-time="30">Eat my heart, take my soul, let it burn you</p>
+        <p class="lyric-line" data-time="32">(I won't let go)</p>
+        <p class="lyric-line" data-time="34">What's on my mind? Well, I'm the farthest gone, you'll find</p>
+        <p class="lyric-line" data-time="36">You should take a look inside</p>
+        <p class="lyric-line" data-time="38">You should tear apart my mind</p>
+        <p class="lyric-line" data-time="40">I won't fall down, you need me</p>
+        <p class="lyric-line" data-time="42">We don't follow crowds, we mold them new</p>
+        <p class="lyric-line" data-time="44">I'm not done, believe me</p>
+        <p class="lyric-line" data-time="46">We won't settle down, we'll make them move (we'll make them move)</p>
+        <p class="lyric-line" data-time="48">Make them mine (make them mine)</p>
+        <p class="lyric-line" data-time="50">You should let me go (I'm not worth saving)</p>
+        <p class="lyric-line" data-time="52">We won't let them know (we won't let them know)</p>
+        <p class="lyric-line" data-time="54">Let them carry on (let them swallow you)</p>
+        <p class="lyric-line" data-time="56">You won't save me too</p>
+        <p class="lyric-line" data-time="58">(We won't let them swallow you)</p>
+    </div>
+
+    <footer>
+        <p>© 2024 AJ DiSpirito ft. Zephyrianna</p>
+    </footer>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const lyricLines = document.querySelectorAll('.lyric-line');
+
+        audio.ontimeupdate = function() {
+            const currentTime = audio.currentTime;
+
+            lyricLines.forEach(line => {
+                const lineTime = parseFloat(line.getAttribute('data-time'));
+                if (currentTime >= lineTime && currentTime < lineTime + 2) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>
