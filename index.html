@@ -1,430 +1,463 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blocky Browser</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-        <link href="Blocky-browser-image.png" rel="icon">
-    <style>
-        body {
-            background-image: linear-gradient(90deg, #000066, #660000);
-            font-family: 'Press Start 2P', cursive;
-            margin: 0;
-            padding: 0;
-            color: #0f0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blocky Browser</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="Blocky-browser-image.png" rel="icon">
+<style>
+body {
+background-image: linear-gradient(90deg, black, #39ff14, black);
+font-family: 'Press Start 2P', cursive;
+margin: 0;
+padding: 0;
+color: #0f0;
+height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
 
-        .title {
-            text-align: center;
-            color: #0f0;
-            font-size: 24px;
-            margin: 40px 0;
-            text-shadow: 4px 4px #000;
-            -webkit-text-stroke: 2px #fff;
-        }
+.title {
+text-align: center;
+color: #0f0;
+font-size: 24px;
+margin: 40px 0;
+text-shadow: 5px 5px #000;
+-webkit-text-stroke: 2px #fff;
+}
 
-        .search-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-            width: 600px;
-        }
+.search-container {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+display: flex;
+gap: 10px;
+z-index: 1000;
+width: 600px;
 
-        #searchInput {
-            padding: 15px;
-            width: 500px;
-            font-family: 'Press Start 2P', cursive;
-            border: 4px solid #fff;
-            background: #000;
-            color: #0f0;
-            outline: none;
-        }
+}
 
-        #searchButton {
-            padding: 15px;
-            cursor: pointer;
-            width: 75px;
-            font-family: 'Press Start 2P', cursive;
-            border: 4px solid #fff;
-            background: white;
-        }
+#searchInput {
+padding: 15px;
+width: 500px;
+font-family: 'Press Start 2P', cursive;
+border: 4px solid #fff;
+background: #000;
+color: #0f0;
+outline: none;
+box-shadow: 4px 4px #000;
+}
 
-        #searchButton:hover {
-            background: #D1D1D1;
-        }
+#searchButton {
+padding: 15px;
+cursor: pointer;
+width: 75px;
+font-family: 'Press Start 2P', cursive;
+border: 4px solid #fff;
+background: white;
+box-shadow: 4px 4px #000;
+}
 
-        .suggestions-container {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 500px;
-            background: #000;
-            border: 4px solid #fff;
-            border-top: none;
-            display: none;
-            z-index: 999;
-        }
+#searchButton:hover {
+background: #D1D1D1;
+border: 4px solid #D1D1D1;
+}
 
-        .suggestion-item {
-            padding: 15px;
-            cursor: pointer;
-            color: #0f0;
-            border-bottom: 2px solid #0f0;
-        }
+#searchButton:active {
+background: #D1D1D1;
+border: 4px solid #D1D1D1;
+box-shadow: none;
+}
 
-        .suggestion-item:last-child {
-            border-bottom: none;
-        }
+.suggestions-container {
+position: absolute;
+top: 100%;
+left: 0;
+width: 500px;
+background: #000;
+border: 4px solid #fff;
+border-top: none;
+display: none;
+z-index: 999;
+}
 
-        .suggestion-item:hover {
-            background: #0f0;
-            color: #000;
-        }
+.suggestion-item {
+padding: 15px;
+cursor: pointer;
+color: #0f0;
+border-bottom: 2px solid #0f0;
+}
 
-        .search-results {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            border: 4px solid #0f0;
-            overflow-y: auto;
-            padding: 20px;
-            box-sizing: border-box;
-            z-index: 1001;
-            color: #0f0;
-        }
+.suggestion-item:last-child {
+border-bottom: none;
+}
 
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #0f0;
-        }
+.suggestion-item:hover {
+background: #0f0;
+color: #000;
+}
 
-        .close-btn:hover {
-            color: #fff;
-        }
-        .close-btn:active {
-            color: red;
-        }
-        .result-item {
-            margin-bottom: 25px;
-            padding: 15px;
-            border: 4px solid #0f0;
-        }
+.search-results {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: #000;
+border: 4px solid #0f0;
+overflow-y: auto;
+padding: 20px;
+box-sizing: border-box;
+z-index: 1001;
+color: #0f0;
+}
 
-        .result-item h3 {
-            margin: 0 0 15px 0;
-        }
+.close-btn {
+position: absolute;
+top: 10px;
+right: 10px;
+font-size: 24px;
+cursor: pointer;
+color: #0f0;
+}
 
-        .result-item h3 a {
-            color: #0f0;
-            text-decoration: none;
-        }
+.close-btn:hover {
+color: #fff;
+}
+.close-btn:active {
+color: red;
+}
+.result-item {
+margin-bottom: 25px;
+padding: 15px;
+border: 4px solid #0f0;
+}
 
-        .result-item .url {
-            color: #0ff;
-            margin-bottom: 10px;
-            word-break: break-all;
-        }
+.result-item h3 {
+margin: 0 0 15px 0;
+}
 
-        .result-item .description {
-            color: #fff;
-        }
+.result-item h3 a {
+color: #0f0;
+text-decoration: none;
+}
 
-        .content {
-            padding: 20px;
-            margin-top: 80px;
-        }
+.result-item .url {
+color: #0ff;
+margin-bottom: 10px;
+word-break: break-all;
+}
 
-        .result-item:hover {
-            background: #001100;
-        }
-        .search-png {
-           width: 16px;
-           height: 16px;
-        }
-    </style>
+.result-item .description {
+color: #fff;
+}
+
+.content {
+padding: 20px;
+margin-top: 80px;
+}
+
+.result-item:hover {
+background: #001100;
+}
+.search-png {
+width: 20px;
+height: 20px;
+}
+.download {
+text-decoration: none;
+color: #39FF14;
+}
+.download-btn {
+padding: 2px 13px;
+background-color: black;
+border-radius: 0px;
+}
+sup {
+font-size: 15px;
+margin-left: 5px;
+margin-bottom: 10px;
+}
+</style>
 </head>
 <body>
-    <div class="title">BLOCKY BROWSER</div>
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search the square web...">
-        <button id="searchButton"><img src="Blocky-browser-image.png" type="image/png" class="search-png" alt="🔍"></button>
-        <div id="suggestions" class="suggestions-container"></div>
-    </div>
-    <div id="searchResults" class="search-results"></div>
+<br>
+<br>
+<div><div class="title">BLOCKY BROWSER<sup><sup>2</sup></sup></div>
+<div class="search-container">
+<input type="text" id="searchInput" placeholder="Search the square web...">
+<button id="searchButton"><img src="Blocky-browser-image.png" type="image/png" class="search-png" alt="🔍"></button>
+<div id="suggestions" class="suggestions-container"></div>
+</div>
+<div id="searchResults" class="search-results"></div>
 
-    <script src="searchData.js"></script>
-    <script>
+
+<script src="searchData.js"></script>
+<script>
 const englishWordList = [
 "ability", "the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at",
 "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there",
-"their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "can", "like", "time", "just", "him", 
-"know", "take", "person", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", 
-"look", "only", "come", "its", "over", "think", "also", "back", "after", "use", "two", "how", "our", "work", "first", 
-"well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us", "such", "no", "here", 
-"where", "why", "when", "same", "each", "few", "might", "own", "those", "through", "down", "should", "someone", 
-"something", "everything", "anything", "nothing", "place", "during", "make", "life", "little", "state", "big", 
-"high", "different", "small", "tell", "never", "always", "ever", "still", "every", "part", "while", "both", "end", 
-"begin", "find", "feel", "leave", "put", "keep", "call", "right", "left", "turn", "show", "play", "start", "stop", 
-"read", "write", "speak", "listen", "watch", "believe", "understand", "love", "hate", "hope", "wish", "try", "help", 
-"need", "become", "seem", "appear", "bring", "continue", "succeed", "fail", "wait", "live", "die", "change", 
-"grow", "develop", "build", "destroy", "create", "learn", "teach", "study", "sing", "dance", "run", "walk", 
-"sit", "stand", "fall", "sleep", "wake", "drive", "travel", "move", "stay", "remember", "forget", "prefer", 
-"choose", "decide", "plan", "prepare", "realize", "imagine", "dream", "expect", "search", "lose", "win", "gain", 
-"offer", "accept", "refuse", "deny", "admit", "argue", "discuss", "debate", "explain", "describe", "report", 
-"inform", "advise", "suggest", "recommend", "warn", "criticize", "evaluate", "judge", "may", "shall", "must", 
-"too", "very", "more", "most", "such", "than", "then", "who", "what", "where", "when", "how", "why", "few", 
-"many", "much", "none", "either", "neither", "while", "once", "again", "ever", "never", "sometimes", 
-"often", "rarely", "seldom", "soon", "later", "before", "after", "between", "among", "through", "around", 
-"across", "against", "without", "within", "along", "about", "off", "up", "down", "over", "under", "above", 
-"below", "toward", "during", "until", "despite", "although", "unless", "if", "whether", "since", "friend", 
-"family", "happy", "sad", "angry", "funny", "pretty", "beautiful", "wonderful", "interesting", "disgusting", 
-"delicious", "fantastic", "extraordinary", "unbelievable", "unacceptable", "disappointing", "undeniable", 
-"uncontrollable", "unimaginable", "individual", "responsibility", "communication", "characteristic", 
-"determination", "implementation", "representation", "interpretation", "institution", "organization", 
-"collaboration", "concentration", "contribution", "relationship", "transformation", 
-"Pneumonoultramicroscopicsilicovolcanoconiosis", "Antidisestablishmentarianism", "Floccinaucinihilipilification", 
-"Supercalifragilisticexpialidocious", "Hippopotomonstrosesquippedaliophobia", "Dichlorodifluoromethane", 
-"Electroencephalographically", "Incomprehensibilities", "Uncharacteristically", "Disproportionately", 
-"Unconstitutionality", "Misinterpretation", "Counterproductive", "Incomprehensible", "Overcompensating", 
-"Antiestablishmentarianism", "Uncontrollability", "Overgeneralization", "Deindustrialization", 
-"about", "after", "again", "air", "all", "also", "am", "an", "and", "any", "are", "as", "at", 
-"be", "because", "been", "before", "being", "between", "both", "but", "by", "can", "could", "did", 
-"didn't", "do", "does", "doesn't", "doing", "don't", "down", "each", "for", "from", "get", "give", 
-"go", "had", "hadn't", "has", "hasn't", "have", "haven't", "he", "her", "here", "him", "his", "how", 
-"i", "if", "in", "into", "is", "isn't", "it", "its", "just", "know", "like", "me", "might", "more", 
-"must", "my", "no", "not", "now", "of", "off", "on", "once", "one", "or", "other", "our", "out", 
-"over", "own", "said", "same", "see", "she", "should", "shouldn't", "so", "some", "take", 
-"tell", "than", "that", "the", "their", "them", "then", "there", "these", "they", "this", "those", 
-"time", "to", "too", "up", "us", "very", "was", "wasn't", "we", "were", "what", "when", 
-"where", "which", "who", "will", "with", "would", "you", "your", "abandon", "absence", 
-"absolute", "abstract", "abundance", "academic", "acceptable", "accidental", "accompanied", "accomplish", 
-"accountable", "accumulated", "achievement", "acquaintance", "adaptation", "additional", "advantageous", 
-"affectionate", "aggressive", "agreement", "agriculture", "alternative", "ambassador", "appearance", 
-"application", "appreciation", "arithmetic", "association", "atmosphere", "attractive", "availability", 
-"background", "beautifully", "beneficial", "calculation", "celebration", "challenging", "characteristic", 
+"their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "can", "like", "time", "just", "him",
+"know", "take", "person", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now",
+"look", "only", "come", "its", "over", "think", "also", "back", "after", "use", "two", "how", "our", "work", "first",
+"well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us", "such", "no", "here",
+"where", "why", "when", "same", "each", "few", "might", "own", "those", "through", "down", "should", "someone",
+"something", "everything", "anything", "nothing", "place", "during", "make", "life", "little", "state", "big",
+"high", "different", "small", "tell", "never", "always", "ever", "still", "every", "part", "while", "both", "end",
+"begin", "find", "feel", "leave", "put", "keep", "call", "right", "left", "turn", "show", "play", "start", "stop",
+"read", "write", "speak", "listen", "watch", "believe", "understand", "love", "hate", "hope", "wish", "try", "help",
+"need", "become", "seem", "appear", "bring", "continue", "succeed", "fail", "wait", "live", "die", "change",
+"grow", "develop", "build", "destroy", "create", "learn", "teach", "study", "sing", "dance", "run", "walk",
+"sit", "stand", "fall", "sleep", "wake", "drive", "travel", "move", "stay", "remember", "forget", "prefer",
+"choose", "decide", "plan", "prepare", "realize", "imagine", "dream", "expect", "search", "lose", "win", "gain",
+"offer", "accept", "refuse", "deny", "admit", "argue", "discuss", "debate", "explain", "describe", "report",
+"inform", "advise", "suggest", "recommend", "warn", "criticize", "evaluate", "judge", "may", "shall", "must",
+"too", "very", "more", "most", "such", "than", "then", "who", "what", "where", "when", "how", "why", "few",
+"many", "much", "none", "either", "neither", "while", "once", "again", "ever", "never", "sometimes",
+"often", "rarely", "seldom", "soon", "later", "before", "after", "between", "among", "through", "around",
+"across", "against", "without", "within", "along", "about", "off", "up", "down", "over", "under", "above",
+"below", "toward", "during", "until", "despite", "although", "unless", "if", "whether", "since", "friend",
+"family", "happy", "sad", "angry", "funny", "pretty", "beautiful", "wonderful", "interesting", "disgusting",
+"delicious", "fantastic", "extraordinary", "unbelievable", "unacceptable", "disappointing", "undeniable",
+"uncontrollable", "unimaginable", "individual", "responsibility", "communication", "characteristic",
+"determination", "implementation", "representation", "interpretation", "institution", "organization",
+"collaboration", "concentration", "contribution", "relationship", "transformation",
+"Pneumonoultramicroscopicsilicovolcanoconiosis", "Antidisestablishmentarianism", "Floccinaucinihilipilification",
+"Supercalifragilisticexpialidocious", "Hippopotomonstrosesquippedaliophobia", "Dichlorodifluoromethane",
+"Electroencephalographically", "Incomprehensibilities", "Uncharacteristically", "Disproportionately",
+"Unconstitutionality", "Misinterpretation", "Counterproductive", "Incomprehensible", "Overcompensating",
+"Antiestablishmentarianism", "Uncontrollability", "Overgeneralization", "Deindustrialization",
+"about", "after", "again", "air", "all", "also", "am", "an", "and", "any", "are", "as", "at",
+"be", "because", "been", "before", "being", "between", "both", "but", "by", "can", "could", "did",
+"didn't", "do", "does", "doesn't", "doing", "don't", "down", "each", "for", "from", "get", "give",
+"go", "had", "hadn't", "has", "hasn't", "have", "haven't", "he", "her", "here", "him", "his", "how",
+"i", "if", "in", "into", "is", "isn't", "it", "its", "just", "know", "like", "me", "might", "more",
+"must", "my", "no", "not", "now", "of", "off", "on", "once", "one", "or", "other", "our", "out",
+"over", "own", "said", "same", "see", "she", "should", "shouldn't", "so", "some", "take",
+"tell", "than", "that", "the", "their", "them", "then", "there", "these", "they", "this", "those",
+"time", "to", "too", "up", "us", "very", "was", "wasn't", "we", "were", "what", "when",
+"where", "which", "who", "will", "with", "would", "you", "your", "abandon", "absence",
+"absolute", "abstract", "abundance", "academic", "acceptable", "accidental", "accompanied", "accomplish",
+"accountable", "accumulated", "achievement", "acquaintance", "adaptation", "additional", "advantageous",
+"affectionate", "aggressive", "agreement", "agriculture", "alternative", "ambassador", "appearance",
+"application", "appreciation", "arithmetic", "association", "atmosphere", "attractive", "availability",
+"background", "beautifully", "beneficial", "calculation", "celebration", "challenging", "characteristic",
 "collaboration", "combination", "communication", "complicated"
 ];
 
+function divOpenUrl() {
+window.open(item.url);
+}
+
 function levenshteinDistance(a, b) {
-    const matrix = [];
-    for (let i = 0; i <= b.length; i++) {
-        matrix[i] = [i];
-    }
-    for (let j = 0; j <= a.length; j++) {
-        matrix[0][j] = j;
-    }
-    for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-            if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                matrix[i][j] = matrix[i - 1][j - 1];
-            } else {
-                matrix[i][j] = Math.min(
-                    matrix[i - 1][j - 1] + 1,
-                    matrix[i][j - 1] + 1,
-                    matrix[i - 1][j] + 1
-                );
-            }
-        }
-    }
-    return matrix[b.length][a.length];
+const matrix = [];
+for (let i = 0; i <= b.length; i++) {
+matrix[i] = [i];
+}
+for (let j = 0; j <= a.length; j++) {
+matrix[0][j] = j;
+}
+for (let i = 1; i <= b.length; i++) {
+for (let j = 1; j <= a.length; j++) {
+if (b.charAt(i - 1) === a.charAt(j - 1)) {
+matrix[i][j] = matrix[i - 1][j - 1];
+} else {
+matrix[i][j] = Math.min(
+matrix[i - 1][j - 1] + 1,
+matrix[i][j - 1] + 1,
+matrix[i - 1][j] + 1
+);
+}
+}
+}
+return matrix[b.length][a.length];
 }
 
 function isEnglishWord(word) {
-    return englishWordList.includes(word.toLowerCase());
+return englishWordList.includes(word.toLowerCase());
 }
 
 function findClosestMatch(word, dictionary) {
-    let closestMatch = '';
-    let minDistance = Infinity;
-    for (const dictWord of dictionary) {
-        const distance = levenshteinDistance(word, dictWord);
-        if (distance < minDistance) {
-            minDistance = distance;
-            closestMatch = dictWord;
-        }
-    }
-    return closestMatch;
+let closestMatch = '';
+let minDistance = Infinity;
+for (const dictWord of dictionary) {
+const distance = levenshteinDistance(word, dictWord);
+if (distance < minDistance) {
+minDistance = distance;
+closestMatch = dictWord;
+}
+}
+return closestMatch;
 }
 
 const dictionary = Object.keys(searchResponses).reduce((acc, key) => {
-    acc.push(key.toLowerCase());
-    searchResponses[key].forEach(item => {
-        acc.push(item.title.toLowerCase());
-        const words = item.description.toLowerCase().split(' ');
-        acc.push(...words.filter(word => word.length > 3));
-    });
-    return [...new Set(acc)];
+acc.push(key.toLowerCase());
+searchResponses[key].forEach(item => {
+acc.push(item.title.toLowerCase());
+const words = item.description.toLowerCase().split(' ');
+acc.push(...words.filter(word => word.length > 3));
+});
+return [...new Set(acc)];
 }, []);
 
 function getSuggestions(input) {
-    if (!input) return [];
-    input = input.toLowerCase();
-    
-    const searchDataSuggestions = dictionary
-        .filter(term => term.includes(input))
-        .slice(0, 3);
-    
-    const englishWordSuggestions = englishWordList
-        .filter(word => word.includes(input))
-        .slice(0, 2);
-    
-    return [...new Set([...searchDataSuggestions, ...englishWordSuggestions])];
+if (!input) return [];
+input = input.toLowerCase();
+
+const searchDataSuggestions = dictionary
+.filter(term => term.includes(input))
+.slice(0, 3);
+
+const englishWordSuggestions = englishWordList
+.filter(word => word.includes(input))
+.slice(0, 2);
+
+return [...new Set([...searchDataSuggestions, ...englishWordSuggestions])];
 }
 
 function displaySuggestions(suggestions) {
-    const suggestionsContainer = document.getElementById('suggestions');
-    suggestionsContainer.innerHTML = '';
-    
-    if (suggestions.length === 0) {
-        suggestionsContainer.style.display = 'none';
-        return;
-    }
-    
-    suggestions.forEach(suggestion => {
-        const div = document.createElement('div');
-        div.className = 'suggestion-item';
-        div.textContent = suggestion;
-        div.onclick = () => {
-            document.getElementById('searchInput').value = suggestion;
-            performSearch();
-            suggestionsContainer.style.display = 'none';
-        };
-        suggestionsContainer.appendChild(div);
-    });
-    
-    suggestionsContainer.style.display = 'block';
+const suggestionsContainer = document.getElementById('suggestions');
+suggestionsContainer.innerHTML = '';
+
+if (suggestions.length === 0) {
+suggestionsContainer.style.display = 'none';
+return;
+}
+
+suggestions.forEach(suggestion => {
+const div = document.createElement('div');
+div.className = 'suggestion-item';
+div.textContent = suggestion;
+div.onclick = () => {
+document.getElementById('searchInput').value = suggestion;
+performSearch();
+suggestionsContainer.style.display = 'none';
+};
+suggestionsContainer.appendChild(div);
+});
+
+suggestionsContainer.style.display = 'block';
 }
 
 function autoCorrect(input) {
-    const words = input.split(' ');
-    const correctedWords = words.map(word => {
-        if (dictionary.includes(word.toLowerCase()) || englishWordList.includes(word.toLowerCase())) {
-            return word;
-        } else {
-            return findClosestMatch(word.toLowerCase(), [...dictionary, ...englishWordList]);
-        }
-    });
-    return correctedWords.join(' ');
+const words = input.split(' ');
+const correctedWords = words.map(word => {
+if (dictionary.includes(word.toLowerCase()) || englishWordList.includes(word.toLowerCase())) {
+return word;
+} else {
+return findClosestMatch(word.toLowerCase(), [...dictionary, ...englishWordList]);
+}
+});
+return correctedWords.join(' ');
 }
 
 function performSearch() {
-    const searchInput = document.getElementById("searchInput").value;
-    const searchTerms = searchInput.split(' ');
-    const correctedInput = autoCorrect(searchInput.toLowerCase());
-    const searchResults = document.getElementById("searchResults");
-    searchResults.innerHTML = "";
+const searchInput = document.getElementById("searchInput").value;
+const searchTerms = searchInput.split(' ');
+const correctedInput = autoCorrect(searchInput.toLowerCase());
+const searchResults = document.getElementById("searchResults");
+searchResults.innerHTML = "";
 
-    let results = [];
-    let hasSearchDataMatches = false;
+let results = [];
+let hasSearchDataMatches = false;
 
-    Object.entries(searchResponses).forEach(([category, items]) => {
-        if (category.toLowerCase().includes(correctedInput)) {
-            results.push(...items);
-            hasSearchDataMatches = true;
-        }
-        items.forEach(item => {
-            if (item.title.toLowerCase().includes(correctedInput) ||
-                item.description.toLowerCase().includes(correctedInput)) {
-                results.push(item);
-                hasSearchDataMatches = true;
-            }
-        });
-    });
+Object.entries(searchResponses).forEach(([category, items]) => {
+if (category.toLowerCase().includes(correctedInput)) {
+results.push(...items);
+hasSearchDataMatches = true;
+}
+items.forEach(item => {
+if (item.title.toLowerCase().includes(correctedInput) ||
+item.description.toLowerCase().includes(correctedInput)) {
+results.push(item);
+hasSearchDataMatches = true;
+}
+});
+});
 
-    if (!hasSearchDataMatches) {
-        searchTerms.forEach(term => {
-            if (isEnglishWord(term)) {
-                results.unshift(
-                    { 
-                        title: `Riley's Dictionary: ${term}`, 
-                        url: `https://rileeyyy.github.io/dictionary`,
-                        description: "Look up word definitions, synonyms, and more" 
-                    },
-                    { 
-                        title: `Merriam-Webster: ${term}`, 
-                        url: `https://www.merriam-webster.com/dictionary/${term}`,
-                        description: "America's most trusted dictionary" 
-                    },
-                    { 
-                        title: `Cambridge Dictionary: ${term}`, 
-                        url: `https://dictionary.cambridge.org/dictionary/english/${term}`,
-                        description: "Meanings & definitions from Cambridge" 
-                    }
-                );
-            }
-        });
-    }
+if (!hasSearchDataMatches) {
+searchTerms.forEach(term => {
+if (isEnglishWord(term)) {
+results.unshift(
+{
+title: `Riley's dictionary: ${term}`,
+url: `https://rileeyyy.github.io/dictionary`,
+description: "Look up word definitions, synonyms, and more"
+},
+{
+title: `Merriam-Webster: ${term}`,
+url: `https://www.merriam-webster.com/dictionary/${term}`,
+description: "America's most trusted dictionary"
+},
+{
+title: `Cambridge Dictionary: ${term}`,
+url: `https://dictionary.cambridge.org/dictionary/english/${term}`,
+description: "Meanings & definitions from Cambridge"
+}
+);
+}
+});
+}
 
-    results = [...new Set(results)];
-    displayResults(results, correctedInput);
+results = [...new Set(results)];
+displayResults(results, correctedInput);
 }
 
 function displayResults(results, query) {
-    const searchResults = document.getElementById("searchResults");
-    searchResults.style.display = "block";
-    searchResults.innerHTML = `
-        <span class="close-btn" onclick="document.getElementById('searchResults').style.display='none'">&times;</span>
-        <h2>Results for: ${query}</h2>
-    `;
+const searchResults = document.getElementById("searchResults");
+searchResults.style.display = "block";
+searchResults.innerHTML = `
+<span class="close-btn" onclick="document.getElementById('searchResults').style.display='none'">&times;</span>
+<h2>Results for: ${query}</h2>
+`;
 
-    if (results.length === 0) {
-        searchResults.innerHTML += '<div class="result-item">No results found</div>';
-        return;
-    }
+if (results.length === 0) {
+searchResults.innerHTML += '<div class="result-item">No results found</div>';
+return;
+}
 
-    results.forEach(result => {
-        const resultDiv = document.createElement('div');
-        resultDiv.className = 'result-item';
-        resultDiv.innerHTML = `
-            <h3><a href="${result.url}" target="_blank">${result.title}</a></h3>
-            <div class="url">${result.url}</div>
-            <div class="description">${result.description}</div>
-        `;
-        searchResults.appendChild(resultDiv);
-    });
+results.forEach(result => {
+const resultDiv = document.createElement('div');
+resultDiv.className = 'result-item';
+resultDiv.innerHTML = `
+<h3><a href="${result.url}" target="_blank">${result.title}</a></h3>
+<div class="url">${result.url}</div>
+<div class="description">${result.description}</div>
+`;
+searchResults.appendChild(resultDiv);
+});
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const searchButton = document.getElementById('searchButton');
-    const searchInput = document.getElementById('searchInput');
+const searchButton = document.getElementById('searchButton');
+const searchInput = document.getElementById('searchInput');
 
-    searchButton.addEventListener('click', performSearch);
-    
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            performSearch();
-        }
-    });
+searchButton.addEventListener('click', performSearch);
 
-    searchInput.addEventListener('input', (e) => {
-        const suggestions = getSuggestions(e.target.value);
-        displaySuggestions(suggestions);
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-container')) {
-            document.getElementById('suggestions').style.display = 'none';
-        }
-    });
+searchInput.addEventListener('keypress', (e) => {
+if (e.key === 'Enter') {
+performSearch();
+}
 });
 
-    </script>
+searchInput.addEventListener('input', (e) => {
+const suggestions = getSuggestions(e.target.value);
+displaySuggestions(suggestions);
+});
+
+document.addEventListener('click', (e) => {
+if (!e.target.closest('.search-container')) {
+document.getElementById('suggestions').style.display = 'none';
+}
+});
+});
+
+</script>
 </body>
 </html>
+
