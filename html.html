@@ -1,0 +1,911 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blocky Browser 3.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root {
+  --neon-green: #39ff14;
+  --darker-green: #2be010;
+  --dark-bg: #000;
+  --light-text: #fff;
+  --highlight: #0ff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(120deg, rgba(0,0,0,0.95), rgba(0,50,0,0.8), rgba(0,0,0,0.95));
+  font-family: 'Press Start 2P', cursive;
+  color: var(--neon-green);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.1) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.title-container {
+  margin: 40px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  font-size: 30px;
+  color: var(--neon-green);
+  text-shadow: 
+    0 0 5px var(--neon-green),
+    0 0 10px var(--neon-green),
+    0 0 20px var(--neon-green);
+  -webkit-text-stroke: 1px var(--light-text);
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  from { text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green); }
+  to { text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green); }
+}
+
+.title sup {
+  font-size: 16px;
+  vertical-align: super;
+  margin-left: 5px;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+  width: 650px;
+  max-width: 90%;
+  margin: 20px auto;
+}
+
+#searchInput {
+  padding: 15px;
+  width: 100%;
+  font-family: 'Press Start 2P', cursive;
+  border: 4px solid var(--neon-green);
+  background: var(--dark-bg);
+  color: var(--neon-green);
+  outline: none;
+  box-shadow: 0 0 10px var(--neon-green);
+  transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+  box-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green);
+}
+
+#searchButton {
+  padding: 15px;
+  cursor: pointer;
+  min-width: 75px;
+  font-family: 'Press Start 2P', cursive;
+  border: 4px solid var(--neon-green);
+  background: var(--dark-bg);
+  color: var(--neon-green);
+  box-shadow: 0 0 10px var(--neon-green);
+  transition: all 0.2s ease;
+}
+
+#searchButton:hover {
+  background: var(--neon-green);
+  color: var(--dark-bg);
+  transform: scale(1.05);
+}
+
+#searchButton:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.suggestions-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: calc(100% - 85px);
+  background: rgba(0, 0, 0, 0.9);
+  border: 4px solid var(--neon-green);
+  border-top: none;
+  display: none;
+  z-index: 999;
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-green) var(--dark-bg);
+}
+
+.suggestions-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.suggestions-container::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+.suggestions-container::-webkit-scrollbar-thumb {
+  background-color: var(--neon-green);
+  border-radius: 0;
+}
+
+.suggestion-item {
+  padding: 15px;
+  cursor: pointer;
+  color: var(--neon-green);
+  border-bottom: 2px solid var(--neon-green);
+  transition: all 0.2s ease;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background: var(--neon-green);
+  color: var(--dark-bg);
+}
+
+.search-results {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  border: 4px solid var(--neon-green);
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1001;
+  color: var(--neon-green);
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-green) var(--dark-bg);
+}
+
+.search-results::-webkit-scrollbar {
+  width: 10px;
+}
+
+.search-results::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+.search-results::-webkit-scrollbar-thumb {
+  background-color: var(--neon-green);
+  border-radius: 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--neon-green);
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  color: var(--light-text);
+  text-shadow: 0 0 10px var(--neon-green);
+  transform: scale(1.2);
+}
+
+.close-btn:active {
+  color: var(--highlight);
+  transform: scale(1);
+}
+
+.result-item {
+  margin-bottom: 25px;
+  padding: 20px;
+  border: 4px solid var(--neon-green);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.result-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(57, 255, 20, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.result-item:hover::before {
+  transform: translateX(100%);
+}
+
+.result-item h3 {
+  margin: 0 0 15px 0;
+}
+
+.result-item h3 a {
+  color: var(--neon-green);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.result-item h3 a:hover {
+  text-shadow: 0 0 10px var(--neon-green);
+}
+
+.result-item .url {
+  color: var(--highlight);
+  margin-bottom: 15px;
+  word-break: break-all;
+  font-size: 12px;
+}
+
+.result-item .description {
+  color: var(--light-text);
+  line-height: 1.6;
+}
+
+.result-item .favicon {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.result-item .meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-size: 12px;
+  color: var(--highlight);
+}
+
+.result-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px var(--neon-green);
+}
+
+.loading {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+}
+
+.loading-text {
+  font-size: 16px;
+  color: var(--neon-green);
+  text-align: center;
+  animation: loading 1s infinite;
+}
+
+@keyframes loading {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: var(--neon-green);
+  border-radius: 50%;
+  animation: dot-pulse 1.5s infinite ease-in-out;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { transform: scale(0.7); opacity: 0.7; }
+  50% { transform: scale(1); opacity: 1; }
+}
+
+.footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  font-size: 10px;
+  color: var(--light-text);
+  width: 100%;
+}
+
+.quick-links {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  max-width: 800px;
+  width: 90%;
+}
+
+.quick-link {
+  background: var(--dark-bg);
+  border: 2px solid var(--neon-green);
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+.quick-link:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px var(--neon-green);
+}
+
+.quick-link h3 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.quick-link p {
+  font-size: 10px;
+  color: var(--light-text);
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    width: 90%;
+    flex-direction: column;
+  }
+  
+  #searchButton {
+    width: 100%;
+  }
+  
+  .suggestions-container {
+    width: 100%;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+  
+  .quick-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+.glitch-effect {
+  position: relative;
+  animation: glitch 1s linear infinite;
+  z-index: 1;
+}
+
+@keyframes glitch {
+  2%, 64% {
+    transform: translate(2px, 0) skew(0deg);
+  }
+  4%, 60% {
+    transform: translate(-2px, 0) skew(0deg);
+  }
+  62% {
+    transform: translate(0, 0) skew(5deg); 
+  }
+}
+
+.glitch-effect:before,
+.glitch-effect:after {
+  content: attr(title);
+  position: absolute;
+  left: 0;
+}
+
+.glitch-effect:before {
+  animation: glitchTop 1s linear infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+@keyframes glitchTop {
+  2%, 64% {
+    transform: translate(2px, -2px);
+  }
+  4%, 60% {
+    transform: translate(-2px, 2px);
+  }
+  62% {
+    transform: translate(13px, -1px) skew(-13deg); 
+  }
+}
+
+.glitch-effect:after {
+  animation: glitchBotom 1.5s linear infinite;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchBotom {
+  2%, 64% {
+    transform: translate(-2px, 0);
+  }
+  4%, 60% {
+    transform: translate(-2px, 0);
+  }
+  62% {
+    transform: translate(-22px, 5px) skew(21deg); 
+  }
+}
+</style>
+</head>
+<body>
+<div class="title-container">
+  <h1 class="title">BLOCKY BROWSER<sup>3.0</sup></h1>
+</div>
+
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Search the square web...">
+  <button id="searchButton">SEARCH</button>
+  <div id="suggestions" class="suggestions-container"></div>
+</div>
+
+<div class="quick-links">
+  <div class="quick-link" onclick="performContextSearch('tech')">
+    <h3>TECH</h3>
+    <p>Latest in technology</p>
+  </div>
+  <div class="quick-link" onclick="performContextSearch('games')">
+    <h3>GAMES</h3>
+    <p>Gaming news & reviews</p>
+  </div>
+  <div class="quick-link" onclick="performContextSearch('science')">
+    <h3>SCIENCE</h3>
+    <p>Scientific discoveries</p>
+  </div>
+  <div class="quick-link" onclick="performContextSearch('art')">
+    <h3>ART</h3>
+    <p>Digital & traditional art</p>
+  </div>
+</div>
+
+<div id="searchResults" class="search-results"></div>
+
+<div class="loading" id="loadingIndicator">
+  <div class="loading-text">PROCESSING QUERY</div>
+  <div class="dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</div>
+
+<div class="footer">
+  BLOCKY BROWSER 3.0 - © 2025 - NO TRACKING, NO ADS, JUST SQUARES
+</div>
+
+<script>
+// Dictionary of common English words for spelling correction
+const englishWordList = [
+  "ability", "the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at",
+  "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there",
+  "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "can", "like", "time", "just", "him",
+  "know", "take", "person", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", "search",
+  "look", "only", "come", "its", "over", "think", "also", "back", "after", "use", "two", "how", "our", "work", "first", "science",
+  "well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us", "such", "no", "here", "technology",
+  "where", "why", "when", "same", "each", "few", "might", "own", "those", "through", "down", "should", "someone", "games", "art",
+  "something", "everything", "anything", "nothing", "place", "during", "make", "life", "little", "state", "big", "programming",
+  "high", "different", "small", "tell", "never", "always", "ever", "still", "every", "part", "while", "both", "end", "crypto",
+  "begin", "find", "feel", "leave", "put", "keep", "call", "right", "left", "turn", "show", "play", "start", "stop", "music",
+  "read", "write", "speak", "listen", "watch", "believe", "understand", "love", "hate", "hope", "wish", "try", "help", "news",
+  "need", "become", "seem", "appear", "bring", "continue", "succeed", "fail", "wait", "live", "die", "change", "internet",
+  "grow", "develop", "build", "destroy", "create", "learn", "teach", "study", "sing", "dance", "run", "walk", "website",
+  "sit", "stand", "fall", "sleep", "wake", "drive", "travel", "move", "stay", "remember", "forget", "prefer", "software",
+  "choose", "decide", "plan", "prepare", "realize", "imagine", "dream", "expect", "search", "lose", "win", "gain", "algorithm",
+  "offer", "accept", "refuse", "deny", "admit", "argue", "discuss", "debate", "explain", "describe", "report", "computer",
+  "inform", "advise", "suggest", "recommend", "warn", "criticize", "evaluate", "judge", "may", "shall", "must", "blockchain",
+  "too", "very", "more", "most", "such", "than", "then", "who", "what", "where", "when", "how", "why", "few", "hardware",
+  "many", "much", "none", "either", "neither", "while", "once", "again", "ever", "never", "sometimes", "artificial",
+  "often", "rarely", "seldom", "soon", "later", "before", "after", "between", "among", "through", "around", "intelligence",
+  "across", "against", "without", "within", "along", "about", "off", "up", "down", "over", "under", "above", "machine",
+  "below", "toward", "during", "until", "despite", "although", "unless", "if", "whether", "since", "friend", "learning",
+  "family", "happy", "sad", "angry", "funny", "pretty", "beautiful", "wonderful", "interesting", "disgusting", "neural",
+  "delicious", "fantastic", "extraordinary", "unbelievable", "unacceptable", "disappointing", "undeniable", "network"
+];
+
+// Available search engines with their APIs
+const searchEngines = {
+  duckduckgo: {
+    name: "DuckDuckGo",
+    baseUrl: "https://api.duckduckgo.com/?format=json&pretty=1&q=",
+    parseResults: function(data) {
+      const results = [];
+      if (data.AbstractText) {
+        results.push({
+          title: data.Heading,
+          url: data.AbstractURL || data.AbstractSource,
+          description: data.AbstractText,
+          source: "DuckDuckGo"
+        });
+      }
+      
+      // Add topics if available
+      if (data.RelatedTopics && data.RelatedTopics.length > 0) {
+        data.RelatedTopics.forEach(topic => {
+          if (topic.Result && !topic.Name) {
+            const titleMatch = topic.Result.match(/<a[^>]*>(.*?)<\/a>/);
+            const title = titleMatch ? titleMatch[1] : "Related Topic";
+            results.push({
+              title: title,
+              url: topic.FirstURL,
+              description: topic.Text,
+              source: "DuckDuckGo Topic"
+            });
+          }
+        });
+      }
+      
+      return results;
+    }
+  },
+  qwant: {
+    name: "Qwant",
+    baseUrl: "https://api.qwant.com/v3/search/web?q=",
+    parseResults: function(data) {
+      const results = [];
+      if (data && data.data && data.data.result && data.data.result.items) {
+        data.data.result.items.forEach(item => {
+          results.push({
+            title: item.title,
+            url: item.url,
+            description: item.description,
+            source: "Qwant"
+          });
+        });
+      }
+      return results;
+    }
+  }
+};
+
+// Custom search database
+const customSearchDatabase = {
+  "tech": [
+    {
+      title: "Latest AI Breakthroughs in 2025",
+      url: "https://tech-squares.io/ai-breakthroughs-2025",
+      description: "Explore the cutting-edge advancements in artificial intelligence that are reshaping our digital landscape in 2025.",
+      date: "2025-04-15",
+      source: "Tech Squares"
+    },
+    {
+      title: "Quantum Computing: Beyond Classical Limits",
+      url: "https://quantum-blocks.net/beyond-classical",
+      description: "How quantum computers are solving previously impossible problems and opening new frontiers in computation and cryptography.",
+      date: "2025-03-22",
+      source: "Quantum Blocks"
+    },
+    {
+      title: "The Rise of Ambient Computing",
+      url: "https://ambient-tech.block/computing-everywhere",
+      description: "Ambient computing is creating environments where technology fades into the background while remaining constantly available.",
+      date: "2025-05-01",
+      source: "Ambient Tech Block"
+    },
+    {
+      title: "Neural Interfaces: Mind-Machine Convergence",
+      url: "https://neuro-square.io/mind-machine-interfaces",
+      description: "Recent breakthroughs in neural interfaces are enabling direct communication between human brains and computers.",
+      date: "2025-04-08",
+      source: "Neuro Square"
+    },
+    {
+      title: "Sustainable Technology: Green Computing",
+      url: "https://green-tech-blocks.com/sustainable-computing",
+      description: "How the tech industry is addressing its environmental impact through innovative approaches to energy efficiency.",
+      date: "2025-04-29",
+      source: "Green Tech Blocks"
+    }
+  ],
+  "games": [
+    {
+      title: "Pixel Realm: The Return to 8-bit Gaming",
+      url: "https://pixel-blocks.game/pixel-realm",
+      description: "This new release combines modern gameplay mechanics with authentic 8-bit aesthetics for a nostalgic yet fresh experience.",
+      date: "2025-05-10",
+      source: "Pixel Blocks"
+    },
+    {
+      title: "Virtual Reality Gaming in 2025: Beyond Immersion",
+      url: "https://vr-squares.net/beyond-immersion",
+      description: "How VR gaming has evolved beyond mere immersion to create genuinely transformative experiences.",
+      date: "2025-04-20",
+      source: "VR Squares"
+    },
+    {
+      title: "Indie Game Revolution: Small Teams, Big Impact",
+      url: "https://indie-game-cubes.io/revolution",
+      description: "Independent game developers are creating some of the most innovative and emotionally resonant experiences in gaming.",
+      date: "2025-05-05",
+      source: "Indie Game Cubes"
+    },
+    {
+      title: "The Evolution of Procedural Generation",
+      url: "https://proc-gen-blocks.game/evolution",
+      description: "How procedural generation techniques have advanced to create virtually infinite worlds with meaningful content.",
+      date: "2025-04-12",
+      source: "Proc-Gen Blocks"
+    },
+    {
+      title: "Game Preservation: Saving Digital History",
+      url: "https://game-archive-cube.org/preservation",
+      description: "The challenges and progress in preserving video game history for future generations.",
+      date: "2025-03-30",
+      source: "Game Archive Cube"
+    }
+  ],
+  "science": [
+    {
+      title: "Breakthrough in Fusion Energy Generation",
+      url: "https://science-blocks.org/fusion-breakthrough",
+      description: "Scientists have achieved a sustained fusion reaction with positive energy output, marking a major milestone in clean energy.",
+      date: "2025-04-25",
+      source: "Science Blocks"
+    },
+    {
+      title: "CRISPR Applications Transform Medicine",
+      url: "https://gene-cubes.science/crispr-medicine",
+      description: "New applications of CRISPR gene editing technology are revolutionizing treatment approaches for genetic diseases.",
+      date: "2025-05-08",
+      source: "Gene Cubes"
+    },
+    {
+      title: "Climate Restoration Technologies",
+      url: "https://climate-squares.org/restoration-tech",
+      description: "Emerging technologies for carbon capture and climate restoration are showing promise in laboratory and field tests.",
+      date: "2025-04-18",
+      source: "Climate Squares"
+    },
+    {
+      title: "Exoplanet Atmospheres: Signs of Life?",
+      url: "https://exo-blocks.science/atmospheres",
+      description: "New telescopic observations have detected potential biosignatures in the atmospheres of several nearby exoplanets.",
+      date: "2025-05-02",
+      source: "Exo Blocks"
+    },
+    {
+      title: "Quantum Biology: Life's Microscopic Mechanisms",
+      url: "https://quantum-bio-cubes.org/microscopic-life",
+      description: "Research reveals how quantum effects may play crucial roles in fundamental biological processes.",
+      date: "2025-04-05",
+      source: "Quantum Bio Cubes"
+    }
+  ],
+  "art": [
+    {
+      title: "Digital Art in the Post-NFT Era",
+      url: "https://digital-art-blocks.gallery/post-nft",
+      description: "How digital artists are exploring new models of ownership, distribution, and community after the NFT bubble.",
+      date: "2025-05-12",
+      source: "Digital Art Blocks"
+    },
+    {
+      title: "AI Collaboration in Creative Fields",
+      url: "https://ai-art-squares.com/collaboration",
+      description: "Artists, musicians, and writers are finding innovative ways to collaborate with AI systems as creative partners.",
+      date: "2025-04-30",
+      source: "AI Art Squares"
+    },
+    {
+      title: "Immersive Art Experiences: Beyond the Gallery",
+      url: "https://immersive-cubes.art/beyond-gallery",
+      description: "How artists are creating multi-sensory experiences that transcend traditional exhibition spaces.",
+      date: "2025-05-07",
+      source: "Immersive Cubes"
+    },
+    {
+      title: "The Revival of Analog Techniques",
+      url: "https://analog-pixels.gallery/revival",
+      description: "In reaction to digital saturation, artists are returning to analog methods with renewed appreciation and innovation.",
+      date: "2025-04-22",
+      source: "Analog Pixels"
+    },
+    {
+      title: "Bioart: Living Media and Ethical Questions",
+      url: "https://bio-art-blocks.org/living-media",
+      description: "Artists working with living organisms as creative media raise profound questions about ethics and sustainability.",
+      date: "2025-04-10",
+      source: "Bio Art Blocks"
+    }
+  ],
+  "programming": [
+    {
+      title: "The Rise of Natural Language Programming",
+      url: "https://code-squares.dev/natural-language",
+      description: "How natural language interfaces are transforming software development and making coding accessible to new audiences.",
+      date: "2025-05-15",
+      source: "Code Squares"
+    },
+    {
+      title: "Web Assembly: The Universal Runtime",
+      url: "https://wasm-blocks.io/universal-runtime",
+      description: "WebAssembly continues to expand beyond browsers to become the universal runtime for cross-platform applications.",
+      date: "2025-04-28",
+      source: "WASM Blocks"
+    },
+    {
+      title: "Rust: The Future of Systems Programming",
+      url: "https://rust-cubes.dev/systems-future",
+      description: "Why Rust continues to gain adoption as the safer alternative for systems programming in critical infrastructure.",
+      date: "2025-05-03",
+      source: "Rust Cubes"
+    },
+    {
+      title: "Quantum Programming Languages",
+      url: "https://quantum-dev-squares.com/languages",
+      description: "An overview of the emerging programming languages designed specifically for quantum computing paradigms.",
+      date: "2025-04-17",
+      source: "Quantum Dev Squares"
+    },
+    {
+      title: "Low-Code/No-Code: Development Democratized",
+      url: "https://no-code-blocks.dev/democratized",
+      description: "How low-code and no-code platforms are enabling non-programmers to create sophisticated applications.",
+      date: "2025-05-09",
+      source: "No-Code Blocks"
+    }
+  ]
+};
+
+function levenshteinDistance(a, b) {
+  const matrix = Array(b.length + 1).fill().map(() => Array(a.length + 1).fill(0));
+
+  for (let i = 0; i <= b.length; i++) {
+    for (let j = 0; j <= a.length; j++) {
+      if (i === 0) matrix[i][j] = j;
+      else if (j === 0) matrix[i][j] = i;
+      else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j - 1] + (a[j - 1] === b[i - 1] ? 0 : 1)
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+document.getElementById('searchButton').addEventListener('click', () => {
+  const query = document.getElementById('searchInput').value.trim();
+  performSearch(query);
+});
+
+document.getElementById('searchInput').addEventListener('input', showSuggestions);
+document.getElementById('searchInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    performSearch(this.value.trim());
+  }
+});
+
+function showSuggestions() {
+  const input = document.getElementById('searchInput').value.trim().toLowerCase();
+  const suggestionBox = document.getElementById('suggestions');
+  suggestionBox.innerHTML = '';
+  if (!input) {
+    suggestionBox.style.display = 'none';
+    return;
+  }
+
+  const suggestions = englishWordList.filter(word =>
+    word.startsWith(input) || levenshteinDistance(word, input) <= 1
+  ).slice(0, 10);
+
+  if (suggestions.length === 0) {
+    suggestionBox.style.display = 'none';
+    return;
+  }
+
+  suggestions.forEach(word => {
+    const div = document.createElement('div');
+    div.className = 'suggestion-item';
+    div.textContent = word;
+    div.addEventListener('click', () => {
+      document.getElementById('searchInput').value = word;
+      suggestionBox.style.display = 'none';
+      performSearch(word);
+    });
+    suggestionBox.appendChild(div);
+  });
+
+  suggestionBox.style.display = 'block';
+}
+
+function performSearch(query) {
+  if (!query) return;
+
+  const resultsContainer = document.getElementById('searchResults');
+  const loadingIndicator = document.getElementById('loadingIndicator');
+  const suggestionBox = document.getElementById('suggestions');
+  suggestionBox.style.display = 'none';
+  resultsContainer.innerHTML = '<span class="close-btn" onclick="document.getElementById(\\'searchResults\\').style.display=\\'none\\'">&times;</span>';
+  resultsContainer.style.display = 'block';
+  loadingIndicator.style.display = 'block';
+
+  setTimeout(() => {
+    const results = [];
+
+    // Try custom database first
+    if (customSearchDatabase[query.toLowerCase()]) {
+      results.push(...customSearchDatabase[query.toLowerCase()]);
+    }
+
+    // Fallback message
+    if (results.length === 0) {
+      resultsContainer.innerHTML += '<p>No results found. Try a broader search.</p>';
+    } else {
+      results.forEach(result => {
+        resultsContainer.innerHTML += `
+          <div class="result-item">
+            <h3><a href="${result.url}" target="_blank">${result.title}</a></h3>
+            <div class="url">${result.url}</div>
+            <div class="description">${result.description}</div>
+            <div class="meta"><span>${result.source || ''}</span><span>${result.date || ''}</span></div>
+          </div>
+        `;
+      });
+    }
+
+    loadingIndicator.style.display = 'none';
+  }, 500);
+}
+
+function performContextSearch(topic) {
+  document.getElementById('searchInput').value = topic;
+  performSearch(topic);
+}
+</script>
+</body>
+</html>
